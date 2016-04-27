@@ -14,15 +14,12 @@ use Serializable;
 /**
  * User controller.
  *
- * @Route("/user")
  */
 class UserController extends Controller
 {
     /**
      * Lists all User entities.
      *
-     * @Route("/", name="user_index")
-     * @Method("GET")
      */
     public function indexAction()
     {
@@ -38,8 +35,6 @@ class UserController extends Controller
     /**
      * Creates a new User entity.
      *
-     * @Route("/new", name="user_new")
-     * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
@@ -64,8 +59,6 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}", name="user_show")
-     * @Method("GET")
      */
     public function showAction(User $user)
     {
@@ -80,8 +73,6 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @Route("/{id}/edit", name="user_edit")
-     * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, User $user)
     {
@@ -107,8 +98,6 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
-     * @Route("/{id}", name="user_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, User $user)
     {
@@ -127,9 +116,6 @@ class UserController extends Controller
     /**
      * Creates a form to delete a User entity.
      *
-     * @param User $user The User entity
-     *
-     * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(User $user)
     {

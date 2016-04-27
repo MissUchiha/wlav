@@ -4,30 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
-#    api_key_user_repository:
-#        class: Doctrine\ORM\EntityRepository
-#        factory: ["@doctrine.orm.entity_manager", getRepository]
-#        arguments: [AppBundle\Entity\User]
-#
-#    api_key_user_provider:
-#        class:  AppBundle\Security\ApiKeyUserProvider
-#        factory_service: doctrine.orm.default_entity_manager
-#        factory_method: getRepository
-#        arguments: ["@api_key_user_repository"]
-#
-#    apikey_authenticator:
-#        class: AppBundle\Security\ApiKeyAuthenticator
-#        public: false
-#        arguments: ["@monolog.logger"]
-
     authentication_success_handler:
         class: AppBundle\Security\AuthenticationSuccessHandler
         arguments: ["@router", "@doctrine.orm.entity_manager", "@event_dispatcher"]
-
     authentication_failure_handler:
         class: AppBundle\Security\AuthenticationFailureHandler
         arguments: ["@router", "@doctrine.orm.entity_manager", "@monolog.logger", "@event_dispatcher"]

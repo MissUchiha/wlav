@@ -2,8 +2,50 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-logout:
-    path: '/logout'
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+#fos_user:
+#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_security_check:
+    path: /login_check
+    methods: POST
+    defaults:
+        _controller: FOSUserBundle:Security:login
+
+fos_user_security_logout:
+    path: /logout
+    methods: GET
+    defaults:
+        _controller: FOSUserBundle:Security:logout
+
+fos_user_security_login:
+    path: /login
+    methods: GET
+    defaults:
+        _controller: FOSUserBundle:Security:login
+
+fos_user_profile_show:
+    path: /profile
+    methods: GET
+    defaults:
+        _controller: FOSUserBundle:Profile:show
+
+fos_user_profile_edit:
+    path: /profile
+    methods: POST
+    defaults:
+        _controller: FOSUserBundle:Profile:edit
+
+fos_user_registration_register:
+    path: /register
+    methods: GET|POST
+    defaults:
+        _controller: FOSUserBundle:Registration:register
+
+fos_user_change_password:
+    path: /profile/password
+    methods: POST|GET
+    defaults:
+        _controller: FOSUserBundle:ChangePassword:changePassword
+
+
