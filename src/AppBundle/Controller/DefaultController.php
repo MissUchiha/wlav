@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
@@ -23,13 +24,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/test1/{id}", name="test")
      * @param Request $request
      * @return JsonResponse
+     * @Security("has_role('ROLE_USER') and user.getId() == id")
      */
-    public function testAction(Request $request)
+    public function test1Action($id, Request $request)
     {
-        return new Response("You're logged in. :)");
+        return new Response("You're logged in. :)"."  ".$request."  ".$this->getUser()->getId());
     }
 
 }
