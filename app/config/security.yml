@@ -13,12 +13,11 @@ dunglas_angular_csrf:
         domain: localhost
         secure: false
         set_on:
-            - { path: ^/$ }
-            - { route: app_, methods: [GET, POST] }
-
+            - { path: ^/.*$ }
+            - { route: /, methods: [GET, POST] }
     secure:
-        - { path: ^/api, methods: [POST, PUT, PATCH, LINK]  }
-        - { route: ^/ }
+#        - { path: ^/.*$, methods: [GET, POST, PUT, PATCH, LINK]  }
+#        - { route: / }
 
 security:
     encoders:

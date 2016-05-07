@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
+use AppBundle\Entity\ProgramSource;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,14 +26,27 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/test1/{id}", name="test")
+     * @Route("/test1", name="test1")
      * @param Request $request
      * @return JsonResponse
-     * @Security("has_role('ROLE_USER') and user.getId() == id")
+     * @Security("has_role('ROLE_USER') or user.getId() == id")
      */
-    public function test1Action($id, Request $request)
+    public function test1Action(Request $request)
     {
         return new Response("You're logged in. :)"."  ".$request."  ".$this->getUser()->getId());
+    }
+
+     /**
+      * @Route("/test", name="test")
+     */
+     public function  testAction(Request $request)
+    {
+        $user =$this->getDoctrine()->getRepository('AppBundle:User')->find(5);
+        $progsorc = $user->getProgramSources();
+        $progsorcs = array();
+        foreach($progsorc as $item)
+            array_push($progsorcs, $item);
+        return new JsonResponse($progsorcs);
     }
 
 }

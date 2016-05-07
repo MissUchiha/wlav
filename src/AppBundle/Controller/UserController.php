@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +13,8 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * User controller.
@@ -24,15 +28,15 @@ class UserController extends Controller
      *
      * @Route("/", name="user_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getEntityManager();
 
         $users = $em->getRepository('AppBundle:User')->findAll();
 
-
-        return new Response($users);
+        return new JsonResponse($users);
 
 //        return $this->render('user/index.html.twig', array(
 //            'users' => $users,
@@ -43,26 +47,34 @@ class UserController extends Controller
      * Creates a new User entity.
      *
      * @Route("/", name="user_new")
-     * @Method({"POST"})
+     * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
-        $user = new User();
-        $form = $this->createForm('AppBundle\Form\UserType', $user);
-        $form->handleRequest($request);
+        if(!$request->request->get("username") && !$request->request->get("password") && !$request->request->get("email") && !$request->request->get("firstName") && !$request->request->get("lastName") )
+            return new JsonResponse("Error! Wrong parameters.",400);
+        else
+        {
+            try {
+                $user = new User();
+                $user->setEmail($request->request->get('email'));
+                $user->setPlainPassword($request->request->get('password'));
+                $user->setUsername($request->request->get('username'));
+                $user->setLastName($request->request->get('lastName'));
+                $user->setFirstName($request->request->get('firstName'));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+                return new JsonResponse("Created user.", 201);
+            }
+            catch(\Exception $e)
+            {
+                return new JsonResponse("Error: ".$e->getMessage(),400);
+            }
         }
 
-        return $this->render('user/new.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-        ));
     }
 
     /**
@@ -73,12 +85,16 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
-        $deleteForm = $this->createDeleteForm($user);
+        try
+        {
+            $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($user->getId());
+            return new JsonResponse($usernew);
 
-        return $this->render('user/show.html.twig', array(
-            'user' => $user,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse("Error: ".$e->getMessage(),400);
+        }
     }
 
     /**
@@ -86,26 +102,37 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="user_edit")
      * @Method({"PUT"})
+     * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
     public function editAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('AppBundle\Form\UserType', $user);
-        $editForm->handleRequest($request);
+        try
+        {
+            if($request->request->get("username"))
+                $user->setUsername($request->request->get("username"));
+            if($request->request->get("password"))
+                $user->setPlainPassword($request->request->get("password"));
+            if($request->request->get("email"))
+                $user->setEmail($request->request->get("email"));
+            if($request->request->get("firstName"))
+                $user->setFirstName($request->request->get("firstName"));
+            if($request->request->get("lastName"))
+                $user->setLastName($request->request->get("lastName"));
+            if($request->request->get("role") && $request->request->get("role") == 'ROLE_ADMIN')
+                $user->setRoles(array($request->request->get("role")));
+            else
+                $user->removeRole('ROLE_ADMIN');
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return new JsonResponse($user);
         }
-
-        return $this->render('user/edit.html.twig', array(
-            'user' => $user,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        catch(\Exception $e)
+        {
+            return new JsonResponse("Error: ".$e->getMessage(),400);
+        }
     }
 
     /**
@@ -113,34 +140,20 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="user_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
-    public function deleteAction(Request $request, User $user)
+    public function deleteAction(Request $request,User $user)
     {
-        $form = $this->createDeleteForm($user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        try {
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
+            return new JsonResponse("Deleted user.", 200);
         }
-
-        return $this->redirectToRoute('user_index');
+        catch(\Exception $e)
+        {
+          return new JsonResponse("Error: ".$e->getMessage(),400);
+        }
     }
 
-    /**
-     * Creates a form to delete a User entity.
-     *
-     * @param User $user The User entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(User $user)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
 }
