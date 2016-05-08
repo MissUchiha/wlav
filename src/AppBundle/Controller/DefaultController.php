@@ -41,12 +41,7 @@ class DefaultController extends Controller
      */
      public function  testAction(Request $request)
     {
-        $user =$this->getDoctrine()->getRepository('AppBundle:User')->find(5);
-        $progsorc = $user->getProgramSources();
-        $progsorcs = array();
-        foreach($progsorc as $item)
-            array_push($progsorcs, $item);
-        return new JsonResponse($progsorcs);
+        return new JsonResponse($this->get('app.validator')->test());
     }
 
 }

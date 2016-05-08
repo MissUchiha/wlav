@@ -13,7 +13,7 @@ use Symfony\Component\Intl\Data\Util\ArrayAccessibleResourceBundle;
  * User
  * @ORM\Entity
  * @ORM\Table(name="`user`")
- */
+  */
 class User extends BaseUser implements \JsonSerializable
 {    /**
      * @var integer $id
@@ -109,9 +109,9 @@ class User extends BaseUser implements \JsonSerializable
     function jsonSerialize()
     {
         $progs = array();
-        foreach ($this->getProgramSources() as $prog) {
+        foreach ($this->getProgramSources() as $prog)
             array_push($progs,$prog);
-        }
+
         return array(
             'id' => $this->id,
             'username' => $this->username,

@@ -26,35 +26,65 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/", name="user_index")
+     * @Route("/", name="read_user_all")
      * @Method("GET")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        try
+        {
+            $em = $this->getDoctrine()->getEntityManager();
 
-        $users = $em->getRepository('AppBundle:User')->findAll();
+            $users = $em->getRepository('AppBundle:User')->findAll();
 
-        return new JsonResponse($users);
-
+            return new JsonResponse($users, 200);
+        }
+        catch(Exception $e)
+        {
+            return new JsonResponse("Error: ".$e->getMessage(),400);
+        }
 //        return $this->render('user/index.html.twig', array(
 //            'users' => $users,
 //        ));
     }
 
     /**
+     * Finds and returns a User entity.
+     *
+     * @Route("/{id}", name="read_user")
+     * @Method("GET")
+     */
+    public function showAction(User $user)
+    {
+        try
+        {
+            $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($user->getId());
+
+            if(is_null($usernew))
+                return new JsonResponse("User doesnt exist". 404);
+            else
+                return new JsonResponse($usernew, 200);
+
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse("Error: ".$e->getMessage(),400);
+        }
+    }
+
+    /**
      * Creates a new User entity.
      *
-     * @Route("/", name="user_new")
+     * @Route("/", name="create_user")
      * @Method("POST")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
-        if(!$request->request->get("username") && !$request->request->get("password") && !$request->request->get("email") && !$request->request->get("firstName") && !$request->request->get("lastName") )
-            return new JsonResponse("Error! Wrong parameters.",400);
-        else
+//        if(!$request->request->get("username") && !$request->request->get("password") && !$request->request->get("email") && !$request->request->get("firstName") && !$request->request->get("lastName") )
+//            return new JsonResponse("Error! Wrong parameters.",400);
+//        else
         {
             try {
                 $user = new User();
@@ -67,7 +97,10 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                return new JsonResponse("Created user.", 201);
+                if(is_null($user))
+                    return new JsonResponse("User is not created.". 404);
+                else
+                    return new JsonResponse($user, 201);
             }
             catch(\Exception $e)
             {
@@ -78,29 +111,9 @@ class UserController extends Controller
     }
 
     /**
-     * Finds and displays a User entity.
+     * Updates an existing User entity.
      *
-     * @Route("/{id}", name="user_show")
-     * @Method("GET")
-     */
-    public function showAction(User $user)
-    {
-        try
-        {
-            $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($user->getId());
-            return new JsonResponse($usernew);
-
-        }
-        catch(\Exception $e)
-        {
-            return new JsonResponse("Error: ".$e->getMessage(),400);
-        }
-    }
-
-    /**
-     * Displays a form to edit an existing User entity.
-     *
-     * @Route("/{id}", name="user_edit")
+     * @Route("/{id}", name="update_user")
      * @Method({"PUT"})
      * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
@@ -127,7 +140,11 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return new JsonResponse($user);
+
+            if(is_null($user))
+                return new JsonResponse("User doesn't exist.". 404);
+            else
+                return new JsonResponse($user, 201);
         }
         catch(\Exception $e)
         {
@@ -138,7 +155,7 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
-     * @Route("/{id}", name="user_delete")
+     * @Route("/{id}", name="delete_user")
      * @Method("DELETE")
      * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
@@ -148,6 +165,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
+
             return new JsonResponse("Deleted user.", 200);
         }
         catch(\Exception $e)
