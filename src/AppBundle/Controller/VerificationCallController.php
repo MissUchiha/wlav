@@ -51,7 +51,7 @@ class VerificationCallController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(), $iduser))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(), $iduser))
                 return new JsonResponse(null,400);
 
             $calls = $this->getDoctrine()->getRepository('AppBundle:VerificationCall')->getVerificationCallsUser($iduser);
@@ -75,8 +75,8 @@ class VerificationCallController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validator')->checkProgram($idprogram,$iduser))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+                !$this->get('app.authchecker')->checkProgram($idprogram,$iduser))
                 return new JsonResponse(null,400);
             $calls = $this->getDoctrine()->getRepository('AppBundle:VerificationCall')->getVerificationCallsProgram($idprogram);
 
@@ -100,9 +100,9 @@ class VerificationCallController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validator')->checkProgram($idprogram,$iduser) ||
-                !$this->get('app.validator')->checkValidationCall($id,$idprogram))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+                !$this->get('app.authchecker')->checkProgram($idprogram,$iduser) ||
+                !$this->get('app.authchecker')->checkValidationCall($id,$idprogram))
                 return new JsonResponse(null,400);
 
             $calls = $this->getDoctrine()->getRepository('AppBundle:VerificationCall')->find($id);
@@ -129,8 +129,8 @@ class VerificationCallController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validator')->checkProgram($idprogram,$iduser))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+                !$this->get('app.authchecker')->checkProgram($idprogram,$iduser))
                 return new JsonResponse(null,400);
 
             $verificationCall = new VerificationCall();
@@ -165,9 +165,9 @@ class VerificationCallController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validator')->checkProgram($idprogram,$iduser) ||
-                !$this->get('app.validator')->checkValidationCall($id,$idprogram))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+                !$this->get('app.authchecker')->checkProgram($idprogram,$iduser) ||
+                !$this->get('app.authchecker')->checkValidationCall($id,$idprogram))
                 return new JsonResponse(null,400);
 
             $em = $this->getDoctrine();

@@ -4,7 +4,7 @@ namespace AppBundle\Services;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class Validator
+class AuthChecker
 {
     protected $authorizationChecker;
     protected $em;

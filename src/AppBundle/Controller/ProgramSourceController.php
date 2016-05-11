@@ -84,7 +84,7 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() || !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser))
+            if(!$this->getUser() || !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser))
                 return new JsonResponse("",400);
 
             $programSource = new ProgramSource();
@@ -120,8 +120,8 @@ class ProgramSourceController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(), $iduser) ||
-                !$this->get('app.validator')->checkProgram($id,$iduser))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(), $iduser) ||
+                !$this->get('app.authchecker')->checkProgram($id,$iduser))
                 return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
@@ -148,8 +148,8 @@ class ProgramSourceController extends Controller
         try
         {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validator')->checkProgram($id,$iduser))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+                !$this->get('app.authchecker')->checkProgram($id,$iduser))
                 return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
@@ -186,8 +186,8 @@ class ProgramSourceController extends Controller
     {
         try {
             if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validator')->checkProgram($id,$iduser))
+                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+                !$this->get('app.authchecker')->checkProgram($id,$iduser))
                 return new JsonResponse("",400);
 
             $em = $this->getDoctrine();

@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2db77d1b-472f-4644-bca0-0ece4e9c5d84" name="Default" comment="Added program_source table, crud operations implemented and tested (initial functionalities). Removed all security checks for testing.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/ProgramSource.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/VerificationCall.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Form/ProgramSourceType.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Form/VerificationCallType.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/ProgramSourceRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/VerificationCallRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Services/Validator.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Tests/Controller/ProgramSourceControllerTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Tests/Controller/VerificationCallControllerTest.php" />
+    <list default="true" id="2db77d1b-472f-4644-bca0-0ece4e9c5d84" name="Default" comment="Added Verification Call table in database, implemented CRUD operations and validation services.">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/AppBundle/Services/Validator.php" afterPath="$PROJECT_DIR$/src/AppBundle/Services/AuthChecker.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.yml" afterPath="$PROJECT_DIR$/app/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Repository/UserRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/UserRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" />
     </list>
     <ignored path="wlav.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,20 +28,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProgramSourceController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProgramSourceController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52879584">
-              <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+            <state vertical-scroll-proportion="-4.6190476">
+              <caret line="192" column="39" selection-start-line="192" selection-start-column="39" selection-end-line="192" selection-end-column="39" />
               <folding>
                 <element signature="e#40#66#0#PHP" expanded="true" />
-                <element signature="e#1013#1038#1#PHP" expanded="true" />
-                <element signature="e#1747#1772#1#PHP" expanded="true" />
-                <element signature="e#1831#1847#1#PHP" expanded="true" />
-                <element signature="e#2787#2803#1#PHP" expanded="true" />
-                <element signature="e#3989#4014#1#PHP" expanded="true" />
-                <element signature="e#4952#4977#1#PHP" expanded="true" />
-                <element signature="e#6259#6284#1#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -62,31 +43,21 @@
       <file leaf-file-name="VerificationCallController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.0">
-              <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+            <state vertical-scroll-proportion="-100.666664">
+              <caret line="169" column="44" selection-start-line="169" selection-start-column="33" selection-end-line="169" selection-end-column="44" />
               <folding>
                 <element signature="e#40#90#0#PHP" expanded="true" />
-                <element signature="e#901#929#1#PHP" expanded="true" />
-                <element signature="e#1648#1676#1#PHP" expanded="true" />
-                <element signature="e#2567#2595#1#PHP" expanded="true" />
-                <element signature="e#3550#3578#1#PHP" expanded="true" />
-                <element signature="e#4618#4643#1#PHP" expanded="true" />
-                <element signature="e#6067#6095#1#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Validator.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/Validator.php">
+      <file leaf-file-name="AuthChecker.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/AuthChecker.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.3333333">
-              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-              <folding>
-                <element signature="e#575#591#1#PHP" expanded="true" />
-                <element signature="e#983#1008#1#PHP" expanded="true" />
-                <element signature="e#1297#1325#1#PHP" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.2513089">
+              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/app/config/services.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="84" selection-start-line="22" selection-start-column="84" selection-end-line="22" selection-end-column="84" />
+              <caret line="21" column="33" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -104,8 +75,8 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-49.88889">
-              <caret line="160" column="5" selection-start-line="159" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+            <state vertical-scroll-proportion="-3.232143">
+              <caret line="136" column="28" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="28" />
               <folding>
                 <element signature="e#40#64#0#PHP" expanded="true" />
               </folding>
@@ -116,7 +87,7 @@
       <file leaf-file-name="ProgramSource.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/ProgramSource.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.6666665">
+            <state vertical-scroll-proportion="0.0">
               <caret line="34" column="41" selection-start-line="155" selection-start-column="34" selection-end-line="156" selection-end-column="68" />
               <folding />
             </state>
@@ -157,16 +128,17 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Form/VerificationCallType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/ProgramSourceRepository.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserRepository.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/VerificationCallRepository.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/ProgramSource.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/VerificationCall.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
-        <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Services/Validator.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
+        <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Services/AuthChecker.php" />
       </list>
     </option>
   </component>
@@ -208,7 +180,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -380,8 +351,55 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wlav" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wlav" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wlav" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wlav" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wlav" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wlav" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -460,7 +478,8 @@
     <MESSAGE value="Added default role to every user." />
     <MESSAGE value="Crud operations for Users added. Need more checks." />
     <MESSAGE value="Added program_source table, crud operations implemented and tested (initial functionalities). Removed all security checks for testing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added program_source table, crud operations implemented and tested (initial functionalities). Removed all security checks for testing." />
+    <MESSAGE value="Added Verification Call table in database, implemented CRUD operations and validation services." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Verification Call table in database, implemented CRUD operations and validation services." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -696,7 +715,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37172773">
           <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -704,10 +722,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#7#259#0#PHP" expanded="false" />
-            <element signature="e#297#333#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -715,7 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.666666">
           <caret line="45" column="7" selection-start-line="45" selection-start-column="7" selection-end-line="45" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -733,7 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.0">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -741,9 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.8888888">
           <caret line="104" column="72" selection-start-line="104" selection-start-column="72" selection-end-line="104" selection-end-column="72" />
-          <folding>
-            <element signature="e#36#84#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -751,10 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.666667">
           <caret line="34" column="23" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
-          <folding>
-            <element signature="e#370#386#1#PHP" expanded="true" />
-            <element signature="e#828#853#1#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -762,7 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.0">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.2565446">
           <caret line="206" column="68" selection-start-line="206" selection-start-column="68" selection-end-line="206" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38743454">
           <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.222222">
           <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -802,7 +803,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.03141361">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,42 +810,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="84" selection-start-line="22" selection-start-column="84" selection-end-line="22" selection-end-column="84" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/ProgramSource.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6666665">
+        <state vertical-scroll-proportion="0.0">
           <caret line="34" column="41" selection-start-line="155" selection-start-column="34" selection-end-line="156" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/Validator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.3333333">
-          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-          <folding>
-            <element signature="e#575#591#1#PHP" expanded="true" />
-            <element signature="e#983#1008#1#PHP" expanded="true" />
-            <element signature="e#1297#1325#1#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-49.88889">
-          <caret line="160" column="5" selection-start-line="159" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+        <state vertical-scroll-proportion="-3.232143">
+          <caret line="136" column="28" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="28" />
           <folding>
             <element signature="e#40#64#0#PHP" expanded="true" />
           </folding>
@@ -854,34 +833,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0">
-          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        <state vertical-scroll-proportion="-100.666664">
+          <caret line="169" column="44" selection-start-line="169" selection-start-column="33" selection-end-line="169" selection-end-column="44" />
           <folding>
             <element signature="e#40#90#0#PHP" expanded="true" />
-            <element signature="e#901#929#1#PHP" expanded="true" />
-            <element signature="e#1648#1676#1#PHP" expanded="true" />
-            <element signature="e#2567#2595#1#PHP" expanded="true" />
-            <element signature="e#3550#3578#1#PHP" expanded="true" />
-            <element signature="e#4618#4643#1#PHP" expanded="true" />
-            <element signature="e#6067#6095#1#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52879584">
-          <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+        <state vertical-scroll-proportion="-4.6190476">
+          <caret line="192" column="39" selection-start-line="192" selection-start-column="39" selection-end-line="192" selection-end-column="39" />
           <folding>
             <element signature="e#40#66#0#PHP" expanded="true" />
-            <element signature="e#1013#1038#1#PHP" expanded="true" />
-            <element signature="e#1747#1772#1#PHP" expanded="true" />
-            <element signature="e#1831#1847#1#PHP" expanded="true" />
-            <element signature="e#2787#2803#1#PHP" expanded="true" />
-            <element signature="e#3989#4014#1#PHP" expanded="true" />
-            <element signature="e#4952#4977#1#PHP" expanded="true" />
-            <element signature="e#6259#6284#1#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="33" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/AuthChecker.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2513089">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
