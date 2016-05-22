@@ -29,7 +29,7 @@ class UserController extends Controller
      * @Route("/", name="read_user_all")
      * @Method("GET")
      * @Security("has_role('ROLE_ADMIN')")
-     */
+    */
     public function indexAction()
     {
         try
@@ -54,6 +54,7 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="read_user")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
     public function showAction(User $user)
     {
@@ -93,10 +94,17 @@ class UserController extends Controller
                 $user->setUsername($request->request->get('username'));
                 $user->setLastName($request->request->get('lastName'));
                 $user->setFirstName($request->request->get('firstName'));
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
 
+
+                if(!is_null($this->get('app.filemanager')->makeUserFolder($user->getId())))
+                {
+                    $this->deleteAction(null, $user);
+                    return new JsonResponse("User is not created." . 404);
+                }
                 if(is_null($user))
                     return new JsonResponse("User is not created.". 404);
                 else
@@ -104,7 +112,7 @@ class UserController extends Controller
             }
             catch(\Exception $e)
             {
-                return new JsonResponse("Error: ".$e->getMessage(),400);
+                return new JsonResponse("Error: ".$e->getMessage().$e->getFile().$e->getLine(),400);
             }
         }
 
@@ -163,6 +171,7 @@ class UserController extends Controller
     {
         try {
             $em = $this->getDoctrine()->getManager();
+            $this->get('app.filemanager')->deleteUserFolder($user->getId());
             $em->remove($user);
             $em->flush();
 

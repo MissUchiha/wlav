@@ -29,7 +29,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "dunglas/angular-csrf-bundle": "^1.0",
         "symfony/assetic-bundle": "^2.8",
-        "symfony/serializer": "^3.0"
+        "symfony/serializer": "^3.0",
+        "symfony/process": "^3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

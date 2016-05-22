@@ -4,7 +4,7 @@ namespace AppBundle\Services;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class AuthChecker
+class ValidationChecker
 {
     protected $authorizationChecker;
     protected $em;
@@ -15,10 +15,6 @@ class AuthChecker
         $this->em = $em;
     }
 
-    public function test()
-    {
-        return true;
-    }
 
     public function checkUser($idLogged, $idRequested)
     {
@@ -50,5 +46,13 @@ class AuthChecker
             return true;
         else
             return false;
+    }
+
+    public function checkUploadedFile($file)
+    {
+        if($file->getClientOriginalExtension() != 'c' || $file->getClientMimeType() != 'text/x-csrc')
+            return false;
+        else
+            return true;
     }
 }

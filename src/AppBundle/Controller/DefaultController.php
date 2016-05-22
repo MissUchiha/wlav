@@ -41,6 +41,27 @@ class DefaultController extends Controller
      */
      public function  testAction(Request $request)
     {
+        $this->get('my_service.logger')->error("error from my logger");
+        $file = $request->files->get("file");
+        $msg = $this->get('app.filemanager')->processUploadedFile(1,2,$file);
+        return new JsonResponse($msg);
+
+        $this->getParameter("");
+        $programSource = new ProgramSource();
+        $em = $this->getDoctrine()->getManager();
+        $process = new Process('ls -lsa');
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return new JsonResponse($process->getOutput());
+
+        $file = $request->files->get("file");
+
+        if($this->get('app.validationchecker')->checkUploadedFile($file) == true)
+            return new JsonResponse($file->getClientOriginalName());
+
         return new JsonResponse($this->get('app.validator')->test());
     }
 

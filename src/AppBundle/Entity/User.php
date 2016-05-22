@@ -109,8 +109,12 @@ class User extends BaseUser implements \JsonSerializable
     function jsonSerialize()
     {
         $progs = array();
-        foreach ($this->getProgramSources() as $prog)
-            array_push($progs,$prog);
+
+        if($this->getProgramSources() != null)
+        {
+            foreach ($this->getProgramSources() as $prog)
+                array_push($progs,$prog);
+        }
 
         return array(
             'id' => $this->id,

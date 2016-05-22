@@ -148,8 +148,11 @@ class ProgramSource implements \JsonSerializable
     function jsonSerialize()
     {
         $calls = array();
-        foreach ($this->getVerificationCalls() as $call)
-            array_push($calls,$call);
+        if($this->getVerificationCalls()  != null)
+        {
+            foreach ($this->getVerificationCalls() as $call)
+                array_push($calls,$call);
+        }
 
         return array(
             'id' => $this->id,

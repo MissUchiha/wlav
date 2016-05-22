@@ -54,9 +54,9 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validator')->checkUser($this->getUser()->getId(),$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($iduser);
@@ -84,8 +84,13 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() || !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() || !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
+//                return new JsonResponse("",400);
+
+            $file = $request->files->get("file");
+
+            if($this->get('app.validationchecker')->checkUploadedFile($file) != true)
+                return new JsonResponse("File not valid.", 400);
 
             $programSource = new ProgramSource();
             $em = $this->getDoctrine()->getManager();
@@ -94,8 +99,15 @@ class ProgramSourceController extends Controller
                 return new JsonResponse("Error. User doesnt exist". 404);
             $programSource->setUser($user);
             $programSource->setCreatedAt(new \DateTime());
+
             $em->persist($programSource);
             $em->flush();
+
+
+//            if($this->get('app.filemanager')->processUploadedFile($iduser,$programSource->getId(), $file))
+//            {
+//                return new JsonResponse("Program source not created.", 404);
+//            }
 
             if(is_null($programSource))
                 return new JsonResponse("Program source not created.", 404);
@@ -119,10 +131,10 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(), $iduser) ||
-                !$this->get('app.authchecker')->checkProgram($id,$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(), $iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $program = $em->find($id);
@@ -147,10 +159,10 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.authchecker')->checkProgram($id,$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $prog = $em->find($id);
@@ -185,10 +197,10 @@ class ProgramSourceController extends Controller
     public function deleteAction($iduser, $id, Request $request)
     {
         try {
-            if(!$this->getUser() ||
-                !$this->get('app.authchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.authchecker')->checkProgram($id,$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine();
             $rep = $em->getRepository('AppBundle:ProgramSource');
@@ -196,6 +208,8 @@ class ProgramSourceController extends Controller
 
             if(is_null($prog))
                 return new JsonResponse("Program source doesn't exist.", 404);
+
+            $this->get('app.filemanager')->deleteProgramSourceFolder($iduser,$id);
 
             $em->getManager()->remove($prog);
             $em->getManager()->flush();

@@ -6,6 +6,10 @@ wlav.config(['$routeProvider',
         when('/', {
             templateUrl: '/partials/login.html',
             controller: 'main'
+        }).
+        when('/nla', {
+            templateUrl: '/partials/nla.html',
+            controller: 'nla'
         });
     }
 ]);

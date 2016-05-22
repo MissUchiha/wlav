@@ -31,7 +31,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets: ~
-
+    validation: { enable_annotations: true }
 
 # Twig Configuration
 twig:
@@ -84,6 +84,7 @@ monolog:
             action_level: error
         file:
             type: stream
+            path: %kernel.root_dir%/../var/logs/user_log.log
             level: error
         syslog:
             type: syslog
