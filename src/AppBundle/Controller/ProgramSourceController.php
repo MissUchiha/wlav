@@ -87,6 +87,7 @@ class ProgramSourceController extends Controller
 //            if(!$this->getUser() || !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
 //                return new JsonResponse("",400);
 
+
             $file = $request->files->get("file");
 
             if($this->get('app.validationchecker')->checkUploadedFile($file) != true)
@@ -98,16 +99,18 @@ class ProgramSourceController extends Controller
             if(is_null($user))
                 return new JsonResponse("Error. User doesnt exist". 404);
             $programSource->setUser($user);
+            $programSource->setName($file->getClientOriginalName());
             $programSource->setCreatedAt(new \DateTime());
 
             $em->persist($programSource);
             $em->flush();
 
 
-//            if($this->get('app.filemanager')->processUploadedFile($iduser,$programSource->getId(), $file))
-//            {
-//                return new JsonResponse("Program source not created.", 404);
-//            }
+            $returnObj = $this->get('app.filemanager')->processUploadedFile($iduser,$programSource->getId(), $file);
+            if(!$returnObj['status'])
+            {
+                return new JsonResponse("Program source not created. - ".$returnObj['message'], 404);
+            }
 
             if(is_null($programSource))
                 return new JsonResponse("Program source not created.", 404);
@@ -209,7 +212,7 @@ class ProgramSourceController extends Controller
             if(is_null($prog))
                 return new JsonResponse("Program source doesn't exist.", 404);
 
-            $this->get('app.filemanager')->deleteProgramSourceFolder($iduser,$id);
+//            $this->get('app.filemanager')->deleteProgramSourceFolder($iduser,$id);
 
             $em->getManager()->remove($prog);
             $em->getManager()->flush();

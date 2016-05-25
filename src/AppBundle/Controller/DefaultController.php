@@ -5,12 +5,16 @@ namespace AppBundle\Controller;
 use AppBundle\AppBundle;
 use AppBundle\Entity\ProgramSource;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Exception\RuntimeException;
 
 class DefaultController extends Controller
 {
@@ -41,10 +45,26 @@ class DefaultController extends Controller
      */
      public function  testAction(Request $request)
     {
-        $this->get('my_service.logger')->error("error from my logger");
+
         $file = $request->files->get("file");
+
         $msg = $this->get('app.filemanager')->processUploadedFile(1,2,$file);
-        return new JsonResponse($msg);
+        return new JsonResponse($file->getClientOriginalName()." ".$msg['status']."  ".$msg['message']);
+
+        try {
+            $process = new Process('sleep 10');
+
+            $process->setTimeout(3);
+
+            $process->run();
+            return new JsonResponse("Done");
+        }
+        catch(RuntimeException $e)
+        {
+            return new JsonResponse($e->getMessage(),400);
+
+        }
+
 
         $this->getParameter("");
         $programSource = new ProgramSource();

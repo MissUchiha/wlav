@@ -27,11 +27,6 @@ class ProgramSource implements \JsonSerializable
     private $user;
 
     /**
-     * @ORM\Column(name="path", type="string", nullable=true)
-     */
-    private $path;
-
-    /**
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     public $name;
@@ -77,22 +72,6 @@ class ProgramSource implements \JsonSerializable
     public function setUser(\AppBundle\Entity\User $user)
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
     }
 
     /**
@@ -158,7 +137,6 @@ class ProgramSource implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'createdAt' => $this->createdAt->format("d.M.Y. H:m:s"),
-            'path' => $this->path,
             'userId' => $this->user->getId(),
             'verificationCalls' => $calls
         );

@@ -99,12 +99,13 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-
-                if(!is_null($this->get('app.filemanager')->makeUserFolder($user->getId())))
+                $returnObj = $this->get('app.filemanager')->makeUserFolder($user->getId());
+                if(!$returnObj['status'])
                 {
                     $this->deleteAction(null, $user);
                     return new JsonResponse("User is not created." . 404);
                 }
+
                 if(is_null($user))
                     return new JsonResponse("User is not created.". 404);
                 else
