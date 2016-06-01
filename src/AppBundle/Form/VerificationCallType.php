@@ -16,7 +16,6 @@ class VerificationCallType extends AbstractType
     {
         $builder
             ->add('flags')
-            ->add('outputPath')
             ->add('stdoutMsg')
             ->add('stderrMsg')
             ->add('errorMsg')

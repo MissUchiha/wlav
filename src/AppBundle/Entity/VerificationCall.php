@@ -30,12 +30,6 @@ class VerificationCall implements \JsonSerializable
 
     /**
      * @var string
-     * @ORM\Column(name="outputPath", type="string")
-     */
-    private $outputPath;
-
-    /**
-     * @var string
      * @ORM\Column(name="stdoutMsg", type="string", nullable=true)
      */
     private $stdoutMsg;
@@ -79,21 +73,6 @@ class VerificationCall implements \JsonSerializable
         $this->flags = $flags;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOutputPath()
-    {
-        return $this->outputPath;
-    }
-
-    /**
-     * @param mixed $outputPath
-     */
-    public function setOutputPath($outputPath)
-    {
-        $this->outputPath = $outputPath;
-    }
 
     /**
      * @return mixed
@@ -188,7 +167,7 @@ class VerificationCall implements \JsonSerializable
 
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link http://php$verificationCall.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
@@ -200,7 +179,6 @@ class VerificationCall implements \JsonSerializable
             'id' => $this->id,
             'programSourceId' => $this->programSource->getId(),
             'flags' => $this->flags,
-            'outputPath' =>$this->outputPath,
             'stdoutMsg' => $this->stdoutMsg,
             'stderrMsg' => $this->stderrMsg,
             'errorMsg' => $this->errorMsg,

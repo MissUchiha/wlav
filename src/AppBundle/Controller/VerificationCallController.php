@@ -137,17 +137,28 @@ class VerificationCallController extends Controller
             $verificationCall = new VerificationCall();
             $em = $this->getDoctrine()->getManager();
             $progSource = $em->getRepository('AppBundle:ProgramSource')->find($idprogram);
+            $flags = array();
             if($request->request->get("flags"))
-                $verificationCall->setFlags($request->request->get("flags"));
-            if($request->request->get("outputPath"))
-                $verificationCall->setOutputPath($request->request->get("outputPath"));
+                $flags = $request->request->get("flags");
+
+            $verificationCall->setFlags($flags);
             $verificationCall->setProgramSource($progSource);
             $verificationCall->setCreatedAt(new \DateTime());
             $em->persist($verificationCall);
             $em->flush();
 
-            return new JsonResponse("Verification call created.",201);
-        }
+            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), $flags);
+
+            if($returnObj['status'])
+            {
+                $verificationCall->setStdoutMsg($returnObj['output']);
+                $verificationCall->setStderrMsg($returnObj['erroroutput']);
+                $em->persist($verificationCall);
+                $em->flush();
+
+                return new JsonResponse("Verification call created.",201);
+            }
+            }
         catch(\Exception $e)
         {
             return new JsonResponse("Error: ".$e->getMessage(),400);

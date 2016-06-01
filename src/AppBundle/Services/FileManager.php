@@ -127,11 +127,61 @@ class FileManager
         }
     }
 
-    public function lav()
+    public function renameVerificationCall($folder, $filename, $idVerCall )
     {
         try
         {
+            if(!file_exists($folder.DIRECTORY_SEPARATOR.$filename.".txt"))
+                throw  new RuntimeException("Error: verification call file not exists! ");
 
+            if(!rename($folder.DIRECTORY_SEPARATOR.$filename.".txt", $folder.DIRECTORY_SEPARATOR.$filename."_{$idVerCall}.txt"))
+                throw  new RuntimeException("Error: cannot rename verification call file! ");
+
+            $this->fs->chmod($folder.DIRECTORY_SEPARATOR.$filename."_{$idVerCall}.txt", 0700);
+
+            return array("status" => true);
+        }
+        catch(ExceptionInterface $e)
+        {
+            return array("status" => false, "message" => $e->getMessage());
+        }
+    }
+
+    public function lav($idUser, $idProgSource, $idVerCall, $flags)
+    {
+        try
+        {
+            $progFolder =$this->usersdir.DIRECTORY_SEPARATOR.$idUser.DIRECTORY_SEPARATOR.$idProgSource;
+            $progName = $progFolder.DIRECTORY_SEPARATOR.$idProgSource.'.c';
+
+            if(!file_exists($progName))
+               return array("status" => false, "message" => "Error: program source {$idProgSource} doesn't exist!");
+
+            $lavFlags = " ";
+
+            if($flags['check-assert'])
+                $lavFlags += "-check-assert ";
+            if($flags['starting-function'])
+                $lavFlags += "-starting-function=".$flags['starting-function']." ";
+            if($flags['timeout'])
+                $lavFlags += "-timeout=".intval($flags['timeout'])." ";
+
+            $process = new Process('LAV '.'"'.$progName.'"'.$lavFlags);
+            $process->setWorkingDirectory($progFolder);
+            $process->setTimeout(10);
+            $process->run();
+
+            if (!$process->isSuccessful())
+            {
+                throw  new RuntimeException($process->getErrorOutput());
+            }
+
+            $returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
+
+            if(!$returnObj['status'])
+                throw  new RuntimeException($returnObj['message']);
+
+            return array("status" => true, "output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
         }
         catch(ExceptionInterface $e)
         {

@@ -45,7 +45,7 @@ class DefaultController extends Controller
      */
      public function  testAction(Request $request)
     {
-
+        return new JsonResponse($this->get('app.filemanager')->lav(1,11,1));
         $file = $request->files->get("file");
 
         $msg = $this->get('app.filemanager')->processUploadedFile(1,2,$file);
