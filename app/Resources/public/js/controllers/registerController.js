@@ -1,16 +1,19 @@
-angular.module('wlav').controller('main', ['$scope', '$http', '$cookies','$q', function($scope, $http, $cookies, $q) {
-    $scope.login = function(ev) {
+angular.module('wlav').controller('register', ['$scope', '$http', '$cookies','$q', function($scope, $http, $cookies, $q) {
+    $scope.register = function(ev) {
         getForm().then(function(response) {
             var div = document.getElementById('hidden_form');
             div.innerHTML = response;
             var post_data = getInputs.call(div);
-            post_data['fos_user_change_password_form[current_password]'] = "id";
-            post_data['fos_user_change_password_form[plainPassword][first]'] = "idid";
-            post_data['fos_user_change_password_form[plainPassword][second]'] = "idid";
+            post_data['fos_user_registration_form[email]'] = $scope.input.email;
+            post_data['fos_user_registration_form[username]'] = $scope.input.username;
+            post_data['fos_user_registration_form[plainPassword][first]'] = $scope.input.password;
+            post_data['fos_user_registration_form[plainPassword][second]'] = $scope.input.password_repeat;
+            post_data['fos_user_registration_form[firstName]'] = $scope.input.firstname;
+            post_data['fos_user_registration_form[lastName]'] = $scope.input.lastname;
             console.log(post_data);
             $http({
                 method: "POST",
-                url: "/profile/password",
+                url: "/register",
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 transformRequest: function(obj) {
                     console.log("Udje");
@@ -22,23 +25,25 @@ angular.module('wlav').controller('main', ['$scope', '$http', '$cookies','$q', f
                 },
                 data: post_data
             }).success(function(response) {
-                document.getElementById('resp').innerHTML = response;
+                // ispisati da je uspesno promenjen pass
+                console.log(response);
             }).error(function(response) {
-                document.getElementById('resp').innerHTML = response;
+                // ispisati da nije uspesno promenjen pass
+                console.log(response);
             });
         });
     };
     function getForm(){
-        var promenljiva = $q.defer();
+        var promise = $q.defer();
         $http({
             method: 'GET',
-            url: '/profile/password'
+            url: '/register'
         }).success(function(response) {
-            promenljiva.resolve(response);
+            promise.resolve(response);
         }).error(function(response) {
-            promenljiva.reject(response);
+            promise.reject(response);
         });
-        return promenljiva.promise;
+        return promise.promise;
     }
     function getInputs(){
         var post_data = {};

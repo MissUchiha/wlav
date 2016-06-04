@@ -24,18 +24,6 @@ fos_user_security_login:
     defaults:
         _controller: FOSUserBundle:Security:login
 
-fos_user_profile_show:
-    path: /profile
-    methods: GET
-    defaults:
-        _controller: FOSUserBundle:Profile:show
-
-fos_user_profile_edit:
-    path: /profile
-    methods: POST
-    defaults:
-        _controller: FOSUserBundle:Profile:edit
-
 fos_user_registration_register:
     path: /register
     methods: GET|POST

@@ -1,11 +1,24 @@
-angular.module('symgular').controller('main', ['$scope', '$http', '$cookies', function($scope, $http, $cookies) {
+angular.module('wlav').controller('main', ['$scope', '$http', '$cookies', function($scope, $http, $cookies) {
     $scope.login = function(ev) {
-        $http.get("/logout").success(function(){
-            $http.get("/test?apikey=aaf23bc45f31c72be2ade5ccfff6b31b").success(function(response) {
-                document.getElementById('resp').innerHTML = response;
-            }).error(function(response) {
-                document.getElementById('resp').innerHTML = response;
-            });
-        })
+        $http({
+            method: "POST",
+            url: "/login_check",
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            transformRequest: function(obj) {
+                var str = [];
+                for(var p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+            },
+            data: {
+                '_username': $scope.input.username,
+                '_password': $scope.input.password
+            }
+        }).success(function(response) {
+            document.getElementById('resp').innerHTML = response;
+        }).error(function(response) {
+            document.getElementById('resp').innerHTML = response;
+        });
     };
 }]);
