@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>VerificationCall list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Flags</th>
+                <th>Stdoutmsg</th>
+                <th>Stderrmsg</th>
+                <th>Errormsg</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for verificationCall in verificationCalls %}
+            <tr>
+                <td><a href="{{ path('verificationcall_show', { 'id': verificationCall.id }) }}">{{ verificationCall.id }}</a></td>
+                <td>{{ verificationCall.flags }}</td>
+                <td>{{ verificationCall.stdoutMsg }}</td>
+                <td>{{ verificationCall.stderrMsg }}</td>
+                <td>{{ verificationCall.errorMsg }}</td>
+                <td>{% if verificationCall.createdAt %}{{ verificationCall.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('verificationcall_show', { 'id': verificationCall.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('verificationcall_edit', { 'id': verificationCall.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('verificationcall_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

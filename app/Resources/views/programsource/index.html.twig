@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ProgramSource list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for programSource in programSources %}
+            <tr>
+                <td><a href="{{ path('programsource_show', { 'id': programSource.id }) }}">{{ programSource.id }}</a></td>
+                <td>{{ programSource.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('programsource_show', { 'id': programSource.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('programsource_edit', { 'id': programSource.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('programsource_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
