@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: wlav_db
+    database_user: root
+    database_password: raster
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 976415d1f42fd1532ef314b5c3c7ec9a4bf6b475
+    users.directory: users
