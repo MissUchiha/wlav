@@ -68,12 +68,12 @@ class ChangePasswordController extends Controller
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_profile_show');
-                $response = new RedirectResponse($url);
-                //$response = new JsonResponse(null, 200);
+//                $response = new RedirectResponse($url);
+//                $url = $this->generateUrl('fos_user_profile_show');
+                $response = new JsonResponse("password changed!", 200);
             }
             else {
-                //$response = new JsonResponse('Invalid request for password change.', 400);
+                $response = new JsonResponse('Invalid request for password change.', 400);
             }
 
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
@@ -85,6 +85,5 @@ class ChangePasswordController extends Controller
             'form' => $form->createView()
         ));
 
-         return new JsonResponse('Invalid request for password change.'.$this->getErrors(), 400);
     }
 }

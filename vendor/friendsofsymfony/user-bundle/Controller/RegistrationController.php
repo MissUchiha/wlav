@@ -62,11 +62,10 @@ class RegistrationController extends Controller
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_profile_show');
                 // Make folder for every registered user
                 $returnObj = $this->get('app.filemanager')->makeUserFolder($user->getId());
                 if($returnObj['status'])
-                    $response = new RedirectResponse($url);
+                    $response = new JsonResponse("User created.", 201);
                 else
                     $response = new JsonResponse(array('message'=>$returnObj['message']),400);
 //                $response = new JsonResponse(null,201);

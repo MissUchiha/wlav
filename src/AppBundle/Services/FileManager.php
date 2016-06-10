@@ -158,6 +158,7 @@ class FileManager
             if(!file_exists($progName))
                return array("status" => false, "message" => "Error: program source {$idProgSource} doesn't exist!");
 
+
             $lavFlags = " ";
 
             if($flags['check-assert'])
@@ -167,7 +168,8 @@ class FileManager
             if($flags['timeout'])
                 $lavFlags += "-timeout=".intval($flags['timeout'])." ";
 
-            $process = new Process('LAV '.'"'.$progName.'"'.$lavFlags);
+//            $process = new Process('LAV '.'"'.$progName.'"'.$lavFlags);
+            $process = new Process('ls');
             $process->setWorkingDirectory($progFolder);
             $process->setTimeout(10);
             $process->run();
@@ -224,4 +226,24 @@ class FileManager
 ;
         }
     }
+
+    public function getProgSourceContents($idUser,$idProgSource)
+    {
+        try
+        {
+            $file = $this->usersdir.DIRECTORY_SEPARATOR.$idUser.DIRECTORY_SEPARATOR.$idProgSource.DIRECTORY_SEPARATOR.$idProgSource.".c";
+            $source = "";
+
+            if(file_exists($file))
+                $source = file_get_contents($file);
+
+            return array("status" => true, 'source' => $source);
+        }
+        catch(ExceptionInterface $e)
+        {
+            return array("status" => false, "message" => $e->getMessage());
+        }
+    }
+
+
 }
