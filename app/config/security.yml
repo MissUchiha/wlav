@@ -52,5 +52,6 @@ security:
     access_control:
         - { path: ^/login.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/loggedIn, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/profile.*, role: ROLE_USER }
         - { path: ^/user.*, role: ROLE_USER }

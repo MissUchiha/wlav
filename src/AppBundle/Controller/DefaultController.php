@@ -40,12 +40,14 @@ class DefaultController extends Controller
         return new Response("You're logged in. :)"."  ".$request."  ".$this->getUser()->getId());
     }
 
+
+
      /**
       * @Route("/test", name="test")
      */
      public function  testAction(Request $request)
     {
-        return new JsonResponse($this->get('app.filemanager')->lav(1,11,1));
+        return new JsonResponse($this->getUser()->getUsername());
         $file = $request->files->get("file");
 
         $msg = $this->get('app.filemanager')->processUploadedFile(1,2,$file);
@@ -85,4 +87,16 @@ class DefaultController extends Controller
         return new JsonResponse($this->get('app.validator')->test());
     }
 
-}
+
+    /**
+     * @Route("/loggedIn", name="loggedIn")
+     */
+    public function  loggedInAction(Request $request)
+    {
+        if($this->getUser())
+            return new JsonResponse(array($this->getUser()->getId(), $this->getUser()->getUsername()),200);
+        else
+            return new JsonResponse(null,404);
+    }
+
+    }
