@@ -1,0 +1,26 @@
+  -check-assert                           - LAV --- Check asserts (default = true)
+  -check-block-conds                      - LAV --- Check in one solver call all conditions inside one block (default = false)
+  -check-div-zero                         - LAV --- Check division-by-zero (default = true)
+  -check-pointers                         - LAV --- Check pointers (default = true)
+  -enable-parallel                        - LAV --- Enable parallel solver calls (default = false)
+  -find-first-flawed                      - LAV --- Stop checking when first flawed command found (default = false)
+  -light                                  - LAV --- Check light (default=false)
+  -memory-flag                            - LAV --- Track memory (default = true)
+  -model                                  - LAV --- Generate model (default=false)
+  -print-html                             - LAV --- Print HTML output (default = false)
+  -skip-inside-loop                       - LAV --- Skip checking inner loop unwindings (default = true)
+  -solver                                 - LAV --- Choose solver and theory
+    =Z3-LA-ARR-EUF                        -   Z3        --- Linear Arithmetic  & Arrays & Uninterpreted Functions
+    =Z3-LA-ARR-ACK                        -   Z3        --- Linear Arithmetic  & Arrays & Ackermanization
+    =Z3-BV-ARR-EUF                        -   Z3        --- BitVectors & Arrays & Uninterpreted Functions
+    =Z3-BV-ARR-ACK                        -   Z3        --- BitVectors & Arrays & Ackermanization
+  -students-mode                          - LAV --- Skip some checks (default = false)
+  -track-pointers                         - LAV --- Track pointers (default = true)
+  -track-unreachable                      - LAV --- Track unreachable (default=false)
+  -urm                                    - LAV --- urm (default=false)
+  -enable-optimizations                   - LAV --- Enable LLVM optimizations (default = false) --- experimental
+  -loop-unroll-begin=<uint>               - LAV --- Loop unrolling - beginning (default=2)
+  -loop-unroll-end=<uint>                 - LAV --- Loop unrolling - end (default=1)
+  -number-threads=<int>                   - LAV --- Number of threads (default = hardware_concurrency)
+  -timeout=<int>                          - LAV --- Kill LAV if it reaches timeout (default = 0s, i.e. no timeout)
+  -starting-function=<string>             - LAV --- Name of the starting function (default = main)
