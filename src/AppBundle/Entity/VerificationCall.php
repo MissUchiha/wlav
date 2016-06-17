@@ -23,7 +23,7 @@ class VerificationCall implements \JsonSerializable
 
     /**
      * @var json_array
-     * @ORM\Column(name="flags", type="json_array")
+     * @ORM\Column(name="flags", type="string", nullable=true)
      */
     private $flags;
 

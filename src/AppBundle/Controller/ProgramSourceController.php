@@ -55,9 +55,9 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($iduser);
@@ -85,8 +85,8 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() || !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() || !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
+//                return new JsonResponse("",400);
 
 
             $file = $request->files->get("file");
@@ -110,6 +110,8 @@ class ProgramSourceController extends Controller
             $returnObj = $this->get('app.filemanager')->processUploadedFile($iduser,$programSource->getId(), $file);
             if(!$returnObj['status'])
             {
+                $em->remove($programSource);
+                $em->flush();
                 return new JsonResponse("Program source not created. - ".$returnObj['message'], 404);
             }
 
@@ -135,10 +137,10 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(), $iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(), $iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $program = $em->find($id);
@@ -172,10 +174,10 @@ class ProgramSourceController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $prog = $em->find($id);
@@ -210,10 +212,10 @@ class ProgramSourceController extends Controller
     public function deleteAction($iduser, $id, Request $request)
     {
         try {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
-                return new JsonResponse("",400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+//                return new JsonResponse("",400);
 
             $em = $this->getDoctrine();
             $rep = $em->getRepository('AppBundle:ProgramSource');

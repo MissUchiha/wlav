@@ -161,11 +161,11 @@ class FileManager
 
             $lavFlags = " ";
 
-            if($flags['check-assert'])
+            if(isset($flags['check-assert']))
                 $lavFlags += "-check-assert ";
-            if($flags['starting-function'])
+            if(isset($flags['starting-function']))
                 $lavFlags += "-starting-function=".$flags['starting-function']." ";
-            if($flags['timeout'])
+            if(isset($flags['timeout']))
                 $lavFlags += "-timeout=".intval($flags['timeout'])." ";
 
 //            $process = new Process('LAV '.'"'.$progName.'"'.$lavFlags);
@@ -179,10 +179,10 @@ class FileManager
                 throw  new RuntimeException($process->getErrorOutput());
             }
 
-            $returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
+            //$returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
 
-            if(!$returnObj['status'])
-                throw  new RuntimeException($returnObj['message']);
+//            if(!$returnObj['status'])
+//                throw  new RuntimeException($returnObj['message']);
 
             return array("status" => true, "output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
         }

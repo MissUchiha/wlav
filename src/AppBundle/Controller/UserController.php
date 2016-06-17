@@ -28,8 +28,10 @@ class UserController extends Controller
      *
      * @Route("/", name="read_user_all")
      * @Method("GET")
-     * @Security("has_role('ROLE_ADMIN')")
     */
+
+//* @Security("has_role('ROLE_ADMIN')")
+
     public function indexAction()
     {
         try

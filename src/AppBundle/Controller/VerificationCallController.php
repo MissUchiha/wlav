@@ -50,9 +50,9 @@ class VerificationCallController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(), $iduser))
-                return new JsonResponse(null,400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(), $iduser))
+//                return new JsonResponse(null,400);
 
             $calls = $this->getDoctrine()->getRepository('AppBundle:VerificationCall')->getVerificationCallsUser($iduser);
 
@@ -74,10 +74,10 @@ class VerificationCallController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser))
-                return new JsonResponse(null,400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser))
+//                return new JsonResponse(null,400);
 
             $calls = $this->getDoctrine()->getRepository('AppBundle:VerificationCall')->getVerificationCallsProgram($idprogram);
 
@@ -100,11 +100,11 @@ class VerificationCallController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser) ||
-                !$this->get('app.validationchecker')->checkValidationCall($id,$idprogram))
-                return new JsonResponse(null,400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser) ||
+//                !$this->get('app.validationchecker')->checkValidationCall($id,$idprogram))
+//                return new JsonResponse(null,400);
 
             $calls = $this->getDoctrine()->getRepository('AppBundle:VerificationCall')->find($id);
 
@@ -129,10 +129,10 @@ class VerificationCallController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser))
-                return new JsonResponse(null,400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser))
+//                return new JsonResponse(null,400);
 
             $verificationCall = new VerificationCall();
             $em = $this->getDoctrine()->getManager();
@@ -147,7 +147,7 @@ class VerificationCallController extends Controller
             $em->persist($verificationCall);
             $em->flush();
 
-            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), $flags);
+            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), json_encode($flags));
 
             if($returnObj['status'])
             {
@@ -156,9 +156,17 @@ class VerificationCallController extends Controller
                 $em->persist($verificationCall);
                 $em->flush();
 
-                return new JsonResponse("Verification call created.",201);
+                return new JsonResponse("Verification call created.".$flags,201);
             }
+            else
+            {
+                $em->remove($verificationCall);
+                $em->flush();
+                return new JsonResponse("Verification call not created. Msg: ".$returnObj["message"],400);
+
             }
+
+        }
         catch(\Exception $e)
         {
             return new JsonResponse("Error: ".$e->getMessage(),400);
@@ -176,11 +184,11 @@ class VerificationCallController extends Controller
     {
         try
         {
-            if(!$this->getUser() ||
-                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser) ||
-                !$this->get('app.validationchecker')->checkValidationCall($id,$idprogram))
-                return new JsonResponse(null,400);
+//            if(!$this->getUser() ||
+//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
+//                !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser) ||
+//                !$this->get('app.validationchecker')->checkValidationCall($id,$idprogram))
+//                return new JsonResponse(null,400);
 
             $em = $this->getDoctrine();
             $call = $em->getRepository('AppBundle:VerificationCall')->find($id);
