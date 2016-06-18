@@ -137,7 +137,7 @@ class VerificationCallController extends Controller
             $verificationCall = new VerificationCall();
             $em = $this->getDoctrine()->getManager();
             $progSource = $em->getRepository('AppBundle:ProgramSource')->find($idprogram);
-            $flags = array();
+            $flags = "";
             if($request->request->get("flags"))
                 $flags = $request->request->get("flags");
 
@@ -147,7 +147,7 @@ class VerificationCallController extends Controller
             $em->persist($verificationCall);
             $em->flush();
 
-            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), json_encode($flags));
+            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), json_decode($flags,true)['flags']);
 
             if($returnObj['status'])
             {
@@ -156,7 +156,7 @@ class VerificationCallController extends Controller
                 $em->persist($verificationCall);
                 $em->flush();
 
-                return new JsonResponse("Verification call created.".$flags,201);
+                return new JsonResponse("Verification call created.",201);
             }
             else
             {
