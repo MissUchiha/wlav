@@ -91,7 +91,8 @@ class ProgramSourceController extends Controller
 
             $file = $request->files->get("file");
 
-            if($this->get('app.validationchecker')->checkUploadedFile($file) != true)
+
+            if(!$file || $this->get('app.validationchecker')->checkUploadedFile($file) != true)
                 return new JsonResponse("File not valid.", 400);
 
             $programSource = new ProgramSource();
@@ -100,6 +101,7 @@ class ProgramSourceController extends Controller
             if(is_null($user))
                 return new JsonResponse("Error. User doesnt exist". 404);
             $programSource->setUser($user);
+
             $programSource->setName($file->getClientOriginalName());
             $programSource->setCreatedAt(new \DateTime());
 
