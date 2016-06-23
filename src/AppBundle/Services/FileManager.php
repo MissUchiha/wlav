@@ -139,7 +139,7 @@ class FileManager
 
             $this->fs->chmod($folder.DIRECTORY_SEPARATOR.$filename."_{$idVerCall}.txt", 0700);
 
-            return array("status" => true);
+            return array("status" => true, "filename" => $folder.DIRECTORY_SEPARATOR.$filename."_{$idVerCall}.txt");
         }
         catch(ExceptionInterface $e)
         {
@@ -153,7 +153,7 @@ class FileManager
         try
         {
             $progFolder =$this->usersdir.DIRECTORY_SEPARATOR.$idUser.DIRECTORY_SEPARATOR.$idProgSource;
-            $progName = $progFolder.DIRECTORY_SEPARATOR.$idProgSource.'.c';
+            $progName = $progFolder.DIRECTORY_SEPARATOR.$idProgSource.'.o';
 
             if(!file_exists($progName))
                return array("status" => false, "message" => "Error: program source {$idProgSource} doesn't exist!");
@@ -179,18 +179,27 @@ class FileManager
                 throw  new RuntimeException($process->getErrorOutput());
             }
 
-            //$returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
+            $returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
 
 //            if(!$returnObj['status'])
 //                throw  new RuntimeException($returnObj['message']);
 
-            return array("status" => true, "statusV" => "verified","output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
+            $statusV = "";
+            if(file_exists($returnObj['filename']))
+            {
+                $filecontents = file_get_contents($returnObj['filename']);
+
+                $statusV = (strstr($filecontents, "UNSAFE") || strstr($filecontents,"UNCHECKED") || strstr($filecontents,"FAILED")) ? "false" : "true";
+            }
+
+            return array("status" => true, "statusV" => $statusV,"output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
         }
         catch(ExceptionInterface $e)
         {
             return array("status" => false, "message" => $e->getMessage());
         }
     }
+
 
     public function processUploadedFile($idUser, $idProgSource, $file)
     {
