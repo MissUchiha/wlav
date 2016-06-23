@@ -153,6 +153,7 @@ class VerificationCallController extends Controller
             {
                 $verificationCall->setStdoutMsg($returnObj['output']);
                 $verificationCall->setStderrMsg($returnObj['erroroutput']);
+                $verificationCall->setStatus($returnObj['statusV']);
                 $em->persist($verificationCall);
                 $em->flush();
 

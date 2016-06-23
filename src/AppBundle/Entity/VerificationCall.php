@@ -47,6 +47,12 @@ class VerificationCall implements \JsonSerializable
     private $errorMsg;
 
     /**
+     * @var string
+     * @ORM\Column(name="status", type="string", nullable=true)
+     */
+    private $status;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -56,6 +62,22 @@ class VerificationCall implements \JsonSerializable
      * @ORM\ManyToOne(targetEntity="ProgramSource", inversedBy="verificationCalls")
      */
     private $programSource;
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
     /**
      * @return mixed
@@ -183,6 +205,7 @@ class VerificationCall implements \JsonSerializable
             'stderrMsg' => $this->stderrMsg,
             'errorMsg' => $this->errorMsg,
             'createdAt' => $this->createdAt->format("d.M.Y. H:m:s"),
+            'status' => $this->status
         );
     }
 }

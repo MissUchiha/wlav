@@ -184,7 +184,7 @@ class FileManager
 //            if(!$returnObj['status'])
 //                throw  new RuntimeException($returnObj['message']);
 
-            return array("status" => true, "output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
+            return array("status" => true, "statusV" => "verified","output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
         }
         catch(ExceptionInterface $e)
         {
