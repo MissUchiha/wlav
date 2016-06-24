@@ -36,6 +36,7 @@ class AuthenticationFailureHandler implements AuthenticationFailureHandlerInterf
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $this->logger->info("Username: " . $request->request->get('username') . " Password: " . $request->request->get('password'));
+
         return new Response('Access Denied', 401);
     }
 }

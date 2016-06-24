@@ -96,6 +96,8 @@ class UserController extends Controller
                 $user->setUsername($request->request->get('username'));
                 $user->setLastName($request->request->get('lastName'));
                 $user->setFirstName($request->request->get('firstName'));
+                $user->setEnabled(true);
+                $user->addUserRole();
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);

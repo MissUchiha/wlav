@@ -128,24 +128,32 @@ abstract class User implements UserInterface, GroupableInterface
         $this->enabled = false;
         $this->locked = false;
         $this->expired = false;
-        $this->roles = array(0=>'ROLE_USER');
+        $this->roles = array();
         $this->credentialsExpired = false;
     }
 
     public function addRole($role)
     {
-        $role = strtoupper($role);
-        if ($role === static::ROLE_DEFAULT) {
-            return $this;
-        }
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
+        $this->roles = array(1=>'ROLE_USER');
 
         return $this;
     }
 
+
+    public function addUserRole()
+    {
+        $this->roles = array(1=>'ROLE_USER');
+
+        return $this;
+    }
+
+
+    public function addAdminRole()
+    {
+        $this->roles = array(0=>'ROLE_USER',1=>'ROLE_ADMIN' );
+
+        return $this;
+    }
     /**
      * Serializes the user.
      *

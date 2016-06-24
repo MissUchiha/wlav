@@ -14,10 +14,12 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 {
     protected $router;
     private $om;
+    private $logger;
 
-    public function __construct(Router $router, ObjectManager $om) {
+    public function __construct(Router $router, ObjectManager $om, $logger) {
         $this->router = $router;
         $this->om = $om;
+        $this->logger = $logger;
     }
 
     /**
@@ -32,6 +34,8 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
+        $this->logger->info("Request obj:".print_r($request,true)."   Session obj:".print_r($_SESSION,true));
+
         return new Response('OK', 200);
     }
 }

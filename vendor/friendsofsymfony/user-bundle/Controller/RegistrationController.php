@@ -49,7 +49,6 @@ class RegistrationController extends Controller
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-
         $form = $formFactory->createForm();
         $form->setData($user);
 
@@ -58,6 +57,8 @@ class RegistrationController extends Controller
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
+            $user->addAdminRole();
 
             $userManager->updateUser($user);
 

@@ -55,4 +55,13 @@ class ValidationChecker
         else
             return true;
     }
+
+    public function checkRegistrationParams($request)
+    {
+        if(!$request->request->get("email")  || !filter_var($request->request->get("email"), FILTER_VALIDATE_EMAIL) || !$request->request->get("username")
+        || !$request->request->get("firstName") || !$request->request->get("lastName")
+        || !$request->request->get("password"))
+            return false;
+        return true;
+    }
 }

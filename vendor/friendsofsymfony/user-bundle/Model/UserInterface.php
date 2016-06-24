@@ -21,6 +21,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
 {
     const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
      * Returns the user unique id.

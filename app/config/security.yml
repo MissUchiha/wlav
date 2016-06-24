@@ -1,21 +1,21 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
-dunglas_angular_csrf:
-
-    token:
-        id: angular
-    header:
-        name: X-XSRF-TOKEN
-    cookie:
-        name: XSRF-TOKEN
-        expire: 0
-        path: /
-        domain: localhost
-        secure: false
-        set_on:
-            - { path: ^/.*$ }
-            - { route: /, methods: [GET, POST] }
-    secure:
+#dunglas_angular_csrf:
+#
+#    token:
+#        id: angular
+#    header:
+#        name: X-XSRF-TOKEN
+#    cookie:
+#        name: XSRF-TOKEN
+#        expire: 0
+#        path: /
+#        domain: localhost
+#        secure: false
+#        set_on:
+#            - { path: ^/.*$ }
+#            - { route: /, methods: [GET, POST] }
+#    secure:
 #        - { path: ^/.*$, methods: [GET, POST, PUT, PATCH, LINK]  }
 #        - { route: / }
 
@@ -53,5 +53,6 @@ security:
         - { path: ^/login.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/loggedIn, role: IS_AUTHENTICATED_ANONYMOUSLY }
+       # - { path: ^/test1.*, role: ROLE_USER }
         - { path: ^/profile.*, role: ROLE_USER }
 #        - { path: ^/user.*, role: ROLE_USER }

@@ -185,6 +185,7 @@ class FileManager
 //                throw  new RuntimeException($returnObj['message']);
 
             $statusV = "";
+            $filecontents = "";
             if(file_exists($returnObj['filename']))
             {
                 $filecontents = file_get_contents($returnObj['filename']);
@@ -192,7 +193,7 @@ class FileManager
                 $statusV = (strstr($filecontents, "UNSAFE") || strstr($filecontents,"UNCHECKED") || strstr($filecontents,"FAILED")) ? "false" : "true";
             }
 
-            return array("status" => true, "statusV" => $statusV,"output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput());
+            return array("status" => true, "statusV" => $statusV,"output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput(),"output" => $filecontents);
         }
         catch(ExceptionInterface $e)
         {

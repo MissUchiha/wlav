@@ -6,7 +6,7 @@ parameters:
 services:
     authentication_success_handler:
         class: AppBundle\Security\AuthenticationSuccessHandler
-        arguments: ["@router", "@doctrine.orm.entity_manager", "@event_dispatcher"]
+        arguments: ["@router", "@doctrine.orm.entity_manager", "@monolog.logger","@event_dispatcher"]
     authentication_failure_handler:
         class: AppBundle\Security\AuthenticationFailureHandler
         arguments: ["@router", "@doctrine.orm.entity_manager", "@monolog.logger", "@event_dispatcher"]

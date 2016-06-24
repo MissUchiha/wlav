@@ -148,12 +148,13 @@ class VerificationCallController extends Controller
             $em->flush();
 
             $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), json_decode($flags,true)['flags']);
-
+            
             if($returnObj['status'])
             {
                 $verificationCall->setStdoutMsg($returnObj['output']);
                 $verificationCall->setStderrMsg($returnObj['erroroutput']);
                 $verificationCall->setStatus($returnObj['statusV']);
+                $verificationCall->setOutput($returnObj['output']);
                 $em->persist($verificationCall);
                 $em->flush();
 
