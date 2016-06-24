@@ -188,4 +188,37 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Deletes a User entity.
+     *
+     * @Route("/{id}/role/{role}", name="add_role")
+     * @Method("POST")
+     */
+    // * @Security("has_role('ROLE_ADMIN')")
+
+    public function roleAction($id, $role, Request $request)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+
+            $user = $em->getRepository('AppBundle:User')->find($id);
+            if(!$user || !(!strcmp($role,"admin") || !strcmp($role,"user")))
+                throw new Exception("parameters are not valid.");
+
+            if(!strcmp($role,'admin'))
+                $user->addAdminRole();
+            else
+                $user->addUserRole();
+
+            $em->persist($user);
+            $em->flush();
+
+            return new JsonResponse("User role updated.", 200);
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse("Error: ".$e->getMessage(),400);
+        }
+    }
+
 }

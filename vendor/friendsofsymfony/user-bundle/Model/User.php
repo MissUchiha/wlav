@@ -142,7 +142,7 @@ abstract class User implements UserInterface, GroupableInterface
 
     public function addUserRole()
     {
-        $this->roles = array(1=>'ROLE_USER');
+        $this->roles = array(0=>'ROLE_USER');
 
         return $this;
     }
