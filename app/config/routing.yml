@@ -35,5 +35,3 @@ fos_user_change_password:
     methods: POST|GET
     defaults:
         _controller: FOSUserBundle:ChangePassword:changePassword
-
-

@@ -169,9 +169,10 @@ class FileManager
                 $lavFlags += "-timeout=".intval($flags['timeout'])." ";
 
 //            $process = new Process('LAV '.'"'.$progName.'"'.$lavFlags);
-            $process = new Process('ls');
+            $process = new Process('LAV '.'"'.$progName.'"');
+//            $process = new Process('ls');
             $process->setWorkingDirectory($progFolder);
-            $process->setTimeout(10);
+//            $process->setTimeout(10);
             $process->run();
 
             if (!$process->isSuccessful())
@@ -193,7 +194,7 @@ class FileManager
                 $statusV = (strstr($filecontents, "UNSAFE") || strstr($filecontents,"UNCHECKED") || strstr($filecontents,"FAILED")) ? "false" : "true";
             }
 
-            return array("status" => true, "statusV" => $statusV,"output" => $process->getOutput(), "erroroutput" => $process->getErrorOutput(),"output" => $filecontents);
+            return array("status" => true, "statusV" => $statusV,"stdout" => $process->getOutput(), "erroroutput" => $process->getErrorOutput(),"output" => $filecontents);
         }
         catch(ExceptionInterface $e)
         {

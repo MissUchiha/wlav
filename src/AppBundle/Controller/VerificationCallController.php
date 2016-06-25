@@ -137,21 +137,20 @@ class VerificationCallController extends Controller
             $verificationCall = new VerificationCall();
             $em = $this->getDoctrine()->getManager();
             $progSource = $em->getRepository('AppBundle:ProgramSource')->find($idprogram);
-            $flags = "";
+            $flags = array();
             if($request->request->get("flags"))
                 $flags = $request->request->get("flags");
 
-            $verificationCall->setFlags($flags);
+            $verificationCall->setFlags((!$flags || count($flags)==0) ? "" : $flags);
             $verificationCall->setProgramSource($progSource);
             $verificationCall->setCreatedAt(new \DateTime());
             $em->persist($verificationCall);
             $em->flush();
 
-            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(), json_decode($flags,true)['flags']);
-            
+            $returnObj = $this->get('app.filemanager')->lav($iduser, $idprogram, $verificationCall->getId(),(!$flags || count($flags)==0) ?  array() : json_decode($flags,true)['flags'] );
             if($returnObj['status'])
             {
-                $verificationCall->setStdoutMsg($returnObj['output']);
+                $verificationCall->setStdoutMsg($returnObj['stdout']);
                 $verificationCall->setStderrMsg($returnObj['erroroutput']);
                 $verificationCall->setStatus($returnObj['statusV']);
                 $verificationCall->setOutput($returnObj['output']);
