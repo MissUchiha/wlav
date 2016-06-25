@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -199,7 +200,11 @@ class VerificationCallController extends Controller
             $em->getManager()->remove($call);
             $em->getManager()->flush();
 
-            return new JsonResponse("Deleted verification call.", 200);
+            $returnObj = $this->get('app.filemanager')->deleteVerificationCall($iduser, $idprogram,$id);
+            if($returnObj['status'])
+                return new JsonResponse("Deleted verification call.", 200);
+            else
+                throw new Exception($returnObj["message"]);
         }
         catch(\Exception $e)
         {

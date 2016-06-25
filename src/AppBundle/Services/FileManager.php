@@ -147,6 +147,26 @@ class FileManager
         }
     }
 
+    public function deleteVerificationCall($idUser, $idProgSource, $idVerCall)
+    {
+        try
+        {
+            $folder =$this->usersdir.DIRECTORY_SEPARATOR.$idUser.DIRECTORY_SEPARATOR.$idProgSource.DIRECTORY_SEPARATOR."Output";
+            $filename = $idProgSource."_".$idVerCall.".txt";
+
+            if(!file_exists($folder.DIRECTORY_SEPARATOR.$filename))
+                throw  new RuntimeException("Error: verification call file not exists! ");
+
+            if(!unlink($folder.DIRECTORY_SEPARATOR.$filename))
+                throw  new RuntimeException("Error: cannot remove verification call! ");
+
+            return array("status" => true);
+        }
+        catch(ExceptionInterface $e)
+        {
+            return array("status" => false, "message" => $e->getMessage());
+        }
+    }
 
     public function lav($idUser, $idProgSource, $idVerCall, $flags)
     {
