@@ -33,12 +33,13 @@ class DefaultController extends Controller
      * @Route("/test1", name="test1")
      * @param Request $request
      * @return JsonResponse
-     * @Security("has_role('ROLE_ADMIN')")
      */
-    // or user.getId() == id")
+    //* @Security("has_role('ROLE_ADMIN')")
+
+//or user.getId() == id")
     public function test1Action(Request $request)
     {
-        return new JsonResponse("USPEO KUKIIIII");
+        return new JsonResponse("USPEO KUKIIIII". $this->get('security.token_storage')->getToken()->getUser()->getUsername());
     }
 
 

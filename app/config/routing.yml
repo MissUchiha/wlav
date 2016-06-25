@@ -35,3 +35,5 @@ fos_user_change_password:
     methods: POST|GET
     defaults:
         _controller: FOSUserBundle:ChangePassword:changePassword
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"

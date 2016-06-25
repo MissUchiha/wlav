@@ -81,8 +81,7 @@ class UserLoginType extends AbstractType
          */
 
         $resolver->setDefaults(array(
-            'csrf_token_id' => false,
-            'csrf_protection' => false,
+            'csrf_token_id' => 'authenticate',
         ));
     }
 }

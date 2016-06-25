@@ -64,7 +64,7 @@ class ControllerTest extends TestCase
 
     public function testGetUserAnonymousUserConvertedToNull()
     {
-        $token = new Token('default', 'anon.');
+        $token = new AnonymousToken('default', 'anon.');
 
         $controller = new TestController();
         $controller->setContainer($this->getContainerWithTokenStorage($token));
