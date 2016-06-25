@@ -29,13 +29,13 @@ class UserController extends Controller
      * @Route("/", name="read_user_all")
      * @Method("GET")
     */
-
-//* @Security("has_role('ROLE_ADMIN')")
-
     public function indexAction()
     {
         try
         {
+            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied. ", 401);
+
             $em = $this->getDoctrine()->getEntityManager();
 
             $users = $em->getRepository('AppBundle:User')->findAll();
@@ -46,9 +46,6 @@ class UserController extends Controller
         {
             return new JsonResponse("Error: ".$e->getMessage(),400);
         }
-//        return $this->render('user/index.html.twig', array(
-//            'users' => $users,
-//        ));
     }
 
     /**
@@ -56,12 +53,14 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="read_user")
      * @Method("GET")
-     * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
     public function showAction(User $user)
     {
         try
         {
+            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied. ", 401);
+
             $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($user->getId());
 
             if(is_null($usernew))
@@ -81,13 +80,12 @@ class UserController extends Controller
      *
      * @Route("/", name="create_user")
      * @Method("POST")
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
-//        if(!$request->request->get("username") && !$request->request->get("password") && !$request->request->get("email") && !$request->request->get("firstName") && !$request->request->get("lastName") )
-//            return new JsonResponse("Error! Wrong parameters.",400);
-//        else
+        if(!$this->get('app.validationchecker')->checkRegistrationParams($request) || !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+            return new JsonResponse("Bad request", 400);
+        else
         {
             try {
                 $user = new User();
@@ -128,12 +126,14 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="update_user")
      * @Method({"PUT"})
-     * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
     public function editAction(Request $request, User $user)
     {
         try
         {
+            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied. ", 401);
+
             if($request->request->get("username"))
                 $user->setUsername($request->request->get("username"));
             if($request->request->get("password"))
@@ -175,6 +175,10 @@ class UserController extends Controller
     public function deleteAction(Request $request,User $user)
     {
         try {
+
+            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied. ", 401);
+
             $em = $this->getDoctrine()->getManager();
             $this->get('app.filemanager')->deleteUserFolder($user->getId());
             $em->remove($user);
@@ -194,11 +198,12 @@ class UserController extends Controller
      * @Route("/{id}/role/{role}", name="add_role")
      * @Method("POST")
      */
-    // * @Security("has_role('ROLE_ADMIN')")
-
     public function roleAction($id, $role, Request $request)
     {
         try {
+            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied. ", 401);
+
             $em = $this->getDoctrine()->getManager();
 
             $user = $em->getRepository('AppBundle:User')->find($id);

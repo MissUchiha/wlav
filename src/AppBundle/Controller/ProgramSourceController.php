@@ -27,12 +27,14 @@ class ProgramSourceController extends Controller
      * @Route("/programsource", name="read_programsources_all")
      * @Method("GET")
      */
-    /* @Security("has_role('ROLE_ADMIN')") */
-
+  
     public function indexAction()
     {
         try
         {
+            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied.",401);
+
             $em = $this->getDoctrine()->getManager();
 
             $programSources = $em->getRepository('AppBundle:ProgramSource')->findAll();
@@ -55,9 +57,10 @@ class ProgramSourceController extends Controller
     {
         try
         {
-//            if(!$this->getUser() ||
-//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
-//                return new JsonResponse("",400);
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user ||  !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser))
+                && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied.",401);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($iduser);
@@ -85,9 +88,10 @@ class ProgramSourceController extends Controller
     {
         try
         {
-//            if(!$this->getUser() || !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser))
-//                return new JsonResponse("",400);
-
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser))
+               && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied.",401);
 
             $file = $request->files->get("file");
 
@@ -139,10 +143,12 @@ class ProgramSourceController extends Controller
     {
         try
         {
-//            if(!$this->getUser() ||
-//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(), $iduser) ||
-//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
-//                return new JsonResponse("",400);
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser)
+            || !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+                && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+
+                return new JsonResponse("Access denied.",401);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $program = $em->find($id);
@@ -176,10 +182,11 @@ class ProgramSourceController extends Controller
     {
         try
         {
-//            if(!$this->getUser() ||
-//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
-//                return new JsonResponse("",400);
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser)
+                || !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+             && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                  return new JsonResponse("Access denied.",401);
 
             $em = $this->getDoctrine()->getRepository('AppBundle:ProgramSource');
             $prog = $em->find($id);
@@ -214,10 +221,11 @@ class ProgramSourceController extends Controller
     public function deleteAction($iduser, $id, Request $request)
     {
         try {
-//            if(!$this->getUser() ||
-//                !$this->get('app.validationchecker')->checkUser($this->getUser()->getId(),$iduser) ||
-//                !$this->get('app.validationchecker')->checkProgram($id,$iduser))
-//                return new JsonResponse("",400);
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser)
+                || !$this->get('app.validationchecker')->checkProgram($id,$iduser))
+               && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                return new JsonResponse("Access denied.",401);
 
             $em = $this->getDoctrine();
             $rep = $em->getRepository('AppBundle:ProgramSource');

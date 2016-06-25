@@ -35,7 +35,6 @@ class RegistrationController extends Controller
     */
     public function registerAction(Request $request)
     {
-//        return new JsonResponse("registracija");
         $userManager = $this->get('fos_user.user_manager');
         
         if($this->get('app.validationchecker')->checkRegistrationParams($request))

@@ -39,7 +39,8 @@ class DefaultController extends Controller
 //or user.getId() == id")
     public function test1Action(Request $request)
     {
-        return new JsonResponse("USPEO KUKIIIII". $this->get('security.token_storage')->getToken()->getUser()->getUsername());
+        if($this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+        return new JsonResponse("USPEO KUKIIIII". $this->get('security.token_storage')->getToken()->getUser()->getRoles()[0]);
     }
 
 
@@ -49,7 +50,7 @@ class DefaultController extends Controller
      */
      public function  testAction(Request $request)
     {
-        return new JsonResponse($this->getUser()->getUsername());
+        return new JsonResponse($this->getUser()->getRoles());
         $file = $request->files->get("file");
 
         $msg = $this->get('app.filemanager')->processUploadedFile(1,2,$file);

@@ -51,7 +51,7 @@ security:
             pattern:      ^/oauth/v2/token
             security:     false
         all:
-            pattern:      ^/user
+            pattern:      ^/register
             security:     false
 
         test:
@@ -59,12 +59,28 @@ security:
             fos_oauth:    true
             stateless:    true
 
+        user:
+                    pattern:      ^/user
+                    fos_oauth:    true
+                    stateless:    true
+        programsource:
+                    pattern:      ^/programsource
+                    fos_oauth:    true
+                    stateless:    true
+        verificationcall:
+                    pattern:      ^/verificationcall
+                    fos_oauth:    true
+                    stateless:    true
+
 
     access_control:
 #        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/login.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/loggedIn, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/test1.*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user.*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/programsource.*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/verificationcall.*, role: IS_AUTHENTICATED_FULLY }
 #          - { path: ^/profile.*, role: ROLE_USER }
 #        - { path: ^/user.*, role: ROLE_USER }

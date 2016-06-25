@@ -1,0 +1,3 @@
+
+
+http://localhost:8000/oauth/v2/token?client_id=1_3iih0fevrh8gkkgwk4s080844s8w08o0w8gsksk4gs8kkgs0g8&client_secret=13beqvq1sju8s0swsowogok48o4wggsgww8wck0008css8wowc&grant_type=client_credentials&refresh_token=Mjg3ZjQ0NTI4ZmE1NDE1NGU3YzYyYjA4NzI3MzU2MjAxZjBhYWIyMDQ5YzZjZmQwOGI4ZWFkMTYzNjk0NTBmOQ

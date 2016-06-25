@@ -20,8 +20,8 @@ class ValidationChecker
     {
         $user = $this->em->getRepository('AppBundle:User')->find($idRequested);
         if(!is_null($user) &&
-            ($this->authorizationChecker->isGranted('ROLE_ADMIN') ||
-            ($this->authorizationChecker->isGranted('ROLE_USER') && $idLogged==$idRequested)))
+            ($user->hasRole('ROLE_ADMIN') ||
+            ($user->hasRole('ROLE_USER') && $idLogged==$idRequested)))
             return true;
         else
             return false;
@@ -54,6 +54,15 @@ class ValidationChecker
             return false;
         else
             return true;
+    }
+    public function checkAdminRole($user)
+    {
+        if(!$user)
+            return false;
+
+        if($user->hasRole("ROLE_ADMIN"))
+            return true;
+        return false;
     }
 
     public function checkRegistrationParams($request)
