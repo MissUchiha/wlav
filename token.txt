@@ -1,5 +1,19 @@
- ./bin/console oauth:client:create client1 www.client1.com code 
- ./bin/console vp:oauth-server:client-create client1
+ ./bin/console oauth:client:create client1 www.client1.com password
 
 
-http://localhost:8000/oauth/v2/token?client_id=1_3iih0fevrh8gkkgwk4s080844s8w08o0w8gsksk4gs8kkgs0g8&client_secret=13beqvq1sju8s0swsowogok48o4wggsgww8wck0008css8wowc&grant_type=client_credentials&refresh_token=Mjg3ZjQ0NTI4ZmE1NDE1NGU3YzYyYjA4NzI3MzU2MjAxZjBhYWIyMDQ5YzZjZmQwOGI4ZWFkMTYzNjk0NTBmOQ
+Grant types:
+
+oauth_clients
+ allowed_grant_types :  a:3:{i:0;s:8:"password";i:1;s:5:"token";i:2;s:13:"refresh_token";}
+
+Napravi admina:
+
+user
+ roles : a:1:{i:0;s:10:"ROLE_ADMIN";}
+
+Dobijanje tokena:
+http://localhost:8000/oauth/v2/token
+client_id=1_3iih0fevrh8gkkgwk4s080844s8w08o0w8gsksk4gs8kkgs0g8&
+client_secret=13beqvq1sju8s0swsowogok48o4wggsgww8wck0008css8wowc&
+grant_type=client_credentials&
+refresh_token=Mjg3ZjQ0NTI4ZmE1NDE1NGU3YzYyYjA4NzI3MzU2MjAxZjBhYWIyMDQ5YzZjZmQwOGI4ZWFkMTYzNjk0NTBmOQ

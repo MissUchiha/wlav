@@ -51,14 +51,16 @@ class UserController extends Controller
     /**
      * Finds and returns a User entity.
      *
-     * @Route("/{id}", name="read_user")
+     * @Route("/{iduser}", name="read_user")
      * @Method("GET")
      */
-    public function showAction(User $user)
+    public function showAction($iduser, Request $request)
     {
         try
         {
-            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser))
+            && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
                 return new JsonResponse("Access denied. ", 401);
 
             $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($user->getId());
@@ -124,14 +126,16 @@ class UserController extends Controller
     /**
      * Updates an existing User entity.
      *
-     * @Route("/{id}", name="update_user")
+     * @Route("/{iduser}", name="update_user")
      * @Method({"PUT"})
      */
-    public function editAction(Request $request, User $user)
+    public function editAction($iduser, Request $request)
     {
         try
         {
-            if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser))
+                && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
                 return new JsonResponse("Access denied. ", 401);
 
             if($request->request->get("username"))
@@ -144,10 +148,11 @@ class UserController extends Controller
                 $user->setFirstName($request->request->get("firstName"));
             if($request->request->get("lastName"))
                 $user->setLastName($request->request->get("lastName"));
-            if($request->request->get("role") && $request->request->get("role") == 'ROLE_ADMIN')
-                $user->setRoles(array($request->request->get("role")));
-            else
-                $user->removeRole('ROLE_ADMIN');
+            if($this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                if($request->request->get("role") && $request->request->get("role") == 'ROLE_ADMIN')
+                    $user->setRoles(array($request->request->get("role")));
+                else
+                    $user->removeRole('ROLE_ADMIN');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

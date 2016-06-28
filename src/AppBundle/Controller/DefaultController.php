@@ -39,6 +39,7 @@ class DefaultController extends Controller
 //or user.getId() == id")
     public function test1Action(Request $request)
     {
+        return new JsonResponse("test   ");
         if($this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
         return new JsonResponse("USPEO KUKIIIII". $this->get('security.token_storage')->getToken()->getUser()->getRoles()[0]);
     }
