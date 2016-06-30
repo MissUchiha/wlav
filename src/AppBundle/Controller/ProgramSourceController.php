@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * ProgramSource controller.
  *
- * @Route("/")
+ * @Route("/api")
  */
 class ProgramSourceController extends Controller
 {

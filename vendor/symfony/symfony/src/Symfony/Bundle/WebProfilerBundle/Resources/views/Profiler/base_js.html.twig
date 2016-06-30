@@ -82,20 +82,6 @@
 
             requestStack = [],
 
-            extractHeaders = function(xhr, stackElement) {
-                /* Here we avoid to call xhr.getResponseHeader in order to */
-                /* prevent polluting the console with CORS security errors */
-                var allHeaders = xhr.getAllResponseHeaders();
-                var ret;
-
-                if (ret = allHeaders.match(/^x-debug-token:\s+(.*)$/im)) {
-                    stackElement.profile = ret[1];
-                }
-                if (ret = allHeaders.match(/^x-debug-token-link:\s+(.*)$/im)) {
-                    stackElement.profilerUrl = ret[1];
-                }
-            },
-
             renderAjaxRequests = function() {
                 var requestCounter = document.querySelectorAll('.sf-toolbar-ajax-requests');
                 if (!requestCounter.length) {
@@ -255,8 +241,8 @@
                                 stackElement.duration = new Date() - stackElement.start;
                                 stackElement.loading = false;
                                 stackElement.error = self.status < 200 || self.status >= 400;
-
-                                extractHeaders(self, stackElement);
+                                stackElement.profile = self.getResponseHeader("X-Debug-Token");
+                                stackElement.profilerUrl = self.getResponseHeader("X-Debug-Token-Link");
 
                                 Sfjs.renderAjaxRequests();
                             }

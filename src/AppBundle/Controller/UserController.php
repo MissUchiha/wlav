@@ -19,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * User controller.
  *
- * @Route("/user")
+ * @Route("/api/user")
  */
 class UserController extends Controller
 {
@@ -63,7 +63,7 @@ class UserController extends Controller
             && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
                 return new JsonResponse("Access denied. ", 401);
 
-            $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($user->getId());
+            $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($iduser);
 
             if(is_null($usernew))
                 return new JsonResponse("User doesnt exist". 404);
@@ -173,11 +173,10 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
-     * @Route("/{id}", name="delete_user")
+     * @Route("/{iduser}", name="delete_user")
      * @Method("DELETE")
-     * @Security("has_role('ROLE_ADMIN') or user.getId() == id")
      */
-    public function deleteAction(Request $request,User $user)
+    public function deleteAction($iduser, Request $request)
     {
         try {
 

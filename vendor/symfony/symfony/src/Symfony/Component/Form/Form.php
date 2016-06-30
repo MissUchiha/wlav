@@ -731,7 +731,11 @@ class Form implements \IteratorAggregate, FormInterface
             return true;
         }
 
-        return 0 === count($this->getErrors(true));
+        if (count($this->getErrors(true)) > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -1018,9 +1022,9 @@ class Form implements \IteratorAggregate, FormInterface
      *
      * @param mixed $value The value to transform
      *
-     * @return mixed
-     *
      * @throws TransformationFailedException If the value cannot be transformed to "normalized" format
+     *
+     * @return mixed
      */
     private function modelToNorm($value)
     {
@@ -1044,9 +1048,9 @@ class Form implements \IteratorAggregate, FormInterface
      *
      * @param string $value The value to reverse transform
      *
-     * @return mixed
-     *
      * @throws TransformationFailedException If the value cannot be transformed to "model" format
+     *
+     * @return mixed
      */
     private function normToModel($value)
     {
@@ -1072,9 +1076,9 @@ class Form implements \IteratorAggregate, FormInterface
      *
      * @param mixed $value The value to transform
      *
-     * @return mixed
-     *
      * @throws TransformationFailedException If the value cannot be transformed to "view" format
+     *
+     * @return mixed
      */
     private function normToView($value)
     {
@@ -1107,9 +1111,9 @@ class Form implements \IteratorAggregate, FormInterface
      *
      * @param string $value The value to reverse transform
      *
-     * @return mixed
-     *
      * @throws TransformationFailedException If the value cannot be transformed to "normalized" format
+     *
+     * @return mixed
      */
     private function viewToNorm($value)
     {

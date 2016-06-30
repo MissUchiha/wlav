@@ -11,8 +11,8 @@
 
 namespace Symfony\Component\Form\Extension\Core\DataMapper;
 
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 /**
  * Maps choices to/from radio forms.
@@ -26,17 +26,23 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 class RadioListMapper implements DataMapperInterface
 {
     /**
+     * @var ChoiceListInterface
+     */
+    private $choiceList;
+
+    public function __construct(ChoiceListInterface $choiceList)
+    {
+        $this->choiceList = $choiceList;
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function mapDataToForms($choice, $radios)
+    public function mapDataToForms($data, $radios)
     {
-        if (!is_string($choice)) {
-            throw new UnexpectedTypeException($choice, 'string');
-        }
-
         foreach ($radios as $radio) {
             $value = $radio->getConfig()->getOption('value');
-            $radio->setData($choice === $value);
+            $radio->setData($value === $data ? true : false);
         }
     }
 
@@ -45,10 +51,6 @@ class RadioListMapper implements DataMapperInterface
      */
     public function mapFormsToData($radios, &$choice)
     {
-        if (null !== $choice && !is_string($choice)) {
-            throw new UnexpectedTypeException($choice, 'null or string');
-        }
-
         $choice = null;
 
         foreach ($radios as $radio) {
@@ -57,7 +59,8 @@ class RadioListMapper implements DataMapperInterface
                     return;
                 }
 
-                $choice = $radio->getConfig()->getOption('value');
+                $value = $radio->getConfig()->getOption('value');
+                $choice = current($this->choiceList->getChoicesForValues(array($value)));
 
                 return;
             }

@@ -537,10 +537,6 @@ class PhpDumper extends Dumper
                 return sprintf("        %s::%s(\$%s);\n", $this->dumpLiteralClass($class), $callable[1], $variableName);
             }
 
-            if (0 === strpos($class, 'new ')) {
-                return sprintf("        (%s)->%s(\$%s);\n", $this->dumpValue($callable[0]), $callable[1], $variableName);
-            }
-
             return sprintf("        call_user_func(array(%s, '%s'), \$%s);\n", $this->dumpValue($callable[0]), $callable[1], $variableName);
         }
 
@@ -715,10 +711,6 @@ EOF;
                 // If the class is a string we can optimize call_user_func away
                 if (strpos($class, "'") === 0) {
                     return sprintf("        $return{$instantiation}%s::%s(%s);\n", $this->dumpLiteralClass($class), $callable[1], $arguments ? implode(', ', $arguments) : '');
-                }
-
-                if (0 === strpos($class, 'new ')) {
-                    return sprintf("        $return{$instantiation}(%s)->%s(%s);\n", $this->dumpValue($callable[0]), $callable[1], $arguments ? implode(', ', $arguments) : '');
                 }
 
                 return sprintf("        $return{$instantiation}call_user_func(array(%s, '%s')%s);\n", $this->dumpValue($callable[0]), $callable[1], $arguments ? ', '.implode(', ', $arguments) : '');
@@ -1166,7 +1158,7 @@ EOF;
                     return true;
                 }
 
-                if ($deep && !isset($visited[$argumentId]) && 'service_container' !== $argumentId) {
+                if ($deep && !isset($visited[$argumentId])) {
                     $visited[$argumentId] = true;
 
                     $service = $this->container->getDefinition($argumentId);

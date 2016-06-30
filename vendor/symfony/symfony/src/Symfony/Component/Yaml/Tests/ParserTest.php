@@ -596,7 +596,7 @@ EOF;
 
     /**
      * @expectedException \Symfony\Component\Yaml\Exception\ParseException
-     * @expectedExceptionMessageRegExp /^Multiple documents are not supported.+/
+     * @expectedExceptionMessage Multiple documents are not supported.
      */
     public function testMultipleDocumentsNotSupportedException()
     {
@@ -626,34 +626,6 @@ yaml:
   - array stuff
 EOF
         );
-    }
-
-    public function testSequenceInMappingStartedBySingleDashLine()
-    {
-        $yaml = <<<EOT
-a:
--
-  b:
-  -
-    bar: baz
-- foo
-d: e
-EOT;
-        $expected = array(
-            'a' => array(
-                array(
-                    'b' => array(
-                        array(
-                            'bar' => 'baz',
-                        ),
-                    ),
-                ),
-                'foo',
-            ),
-            'd' => 'e',
-        );
-
-        $this->assertSame($expected, $this->parser->parse($yaml));
     }
 
     /**
@@ -1005,7 +977,6 @@ EOT
 foo
 # bar
 baz
-
 EOT
                     ,
                 ),
@@ -1034,7 +1005,7 @@ EOT;
         $expected = array(
             'foo' => array(
                 'bar' => array(
-                    'scalar-block' => "line1 line2>\n",
+                    'scalar-block' => 'line1 line2>',
                 ),
                 'baz' => array(
                     'foobar' => null,

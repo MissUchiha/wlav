@@ -274,7 +274,7 @@ class EntityTypeTest extends TypeTestCase
         $field->submit(null);
 
         $this->assertNull($field->getData());
-        $this->assertSame('', $field->getViewData(), 'View data is always a string');
+        $this->assertNull($field->getViewData());
     }
 
     public function testSubmitSingleNonExpandedNull()

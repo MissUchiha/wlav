@@ -33,12 +33,8 @@ class ComposerStaticInit4897844512118399c60a7b2cb62b353a
             'Symfony\\Bundle\\MonologBundle\\' => 29,
             'Symfony\\Bundle\\AsseticBundle\\' => 29,
             'Symfony\\Bundle\\' => 15,
-            'Symfony\\Bridge\\Twig\\' => 20,
-            'Symfony\\Bridge\\Swiftmailer\\' => 27,
-            'Symfony\\Bridge\\ProxyManager\\' => 28,
             'Symfony\\Bridge\\PhpUnit\\' => 23,
-            'Symfony\\Bridge\\Monolog\\' => 23,
-            'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Symfony\\Bridge\\' => 15,
             'Sensio\\Bundle\\GeneratorBundle\\' => 30,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
             'Sensio\\Bundle\\DistributionBundle\\' => 33,
@@ -46,6 +42,10 @@ class ComposerStaticInit4897844512118399c60a7b2cb62b353a
         'O' => 
         array (
             'OAuth2\\' => 7,
+        ),
+        'N' => 
+        array (
+            'Nelmio\\CorsBundle\\' => 18,
         ),
         'M' => 
         array (
@@ -112,29 +112,13 @@ class ComposerStaticInit4897844512118399c60a7b2cb62b353a
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bundle',
         ),
-        'Symfony\\Bridge\\Twig\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Twig',
-        ),
-        'Symfony\\Bridge\\Swiftmailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Swiftmailer',
-        ),
-        'Symfony\\Bridge\\ProxyManager\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/ProxyManager',
-        ),
         'Symfony\\Bridge\\PhpUnit\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/phpunit-bridge',
         ),
-        'Symfony\\Bridge\\Monolog\\' => 
+        'Symfony\\Bridge\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Monolog',
-        ),
-        'Symfony\\Bridge\\Doctrine\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Doctrine',
+            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge',
         ),
         'Sensio\\Bundle\\GeneratorBundle\\' => 
         array (
@@ -151,6 +135,10 @@ class ComposerStaticInit4897844512118399c60a7b2cb62b353a
         'OAuth2\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofsymfony/oauth2-php/lib',
+        ),
+        'Nelmio\\CorsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nelmio/cors-bundle',
         ),
         'Monolog\\' => 
         array (

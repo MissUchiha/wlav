@@ -26,6 +26,8 @@ use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Registration controller.
+ *
+ * @Route("/")
  */
 class RegistrationController extends Controller
 {

@@ -38,8 +38,8 @@ class DateTimeToTimestampTransformer extends BaseDateTimeTransformer
             return;
         }
 
-        if (!$value instanceof \DateTimeInterface) {
-            throw new TransformationFailedException('Expected a \DateTimeInterface.');
+        if (!$value instanceof \DateTime && !$value instanceof \DateTimeInterface) {
+            throw new TransformationFailedException('Expected a \DateTime or \DateTimeInterface.');
         }
 
         return $value->getTimestamp();

@@ -54,7 +54,6 @@ class DoctrineExtractorTest extends \PHPUnit_Framework_TestCase
                 'customFoo',
                 'foo',
                 'bar',
-                'indexedBar',
             ),
             $this->extractor->getProperties('Symfony\Bridge\Doctrine\Tests\PropertyInfo\Fixtures\DoctrineDummy')
         );
@@ -76,21 +75,13 @@ class DoctrineExtractorTest extends \PHPUnit_Framework_TestCase
             array('bool', array(new Type(Type::BUILTIN_TYPE_BOOL))),
             array('binary', array(new Type(Type::BUILTIN_TYPE_RESOURCE))),
             array('json', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true))),
-            array('foo', array(new Type(Type::BUILTIN_TYPE_OBJECT, true, 'Symfony\Bridge\Doctrine\Tests\PropertyInfo\Fixtures\DoctrineRelation'))),
+            array('foo', array(new Type(Type::BUILTIN_TYPE_OBJECT, false, 'Symfony\Bridge\Doctrine\Tests\PropertyInfo\Fixtures\DoctrineRelation'))),
             array('bar', array(new Type(
                 Type::BUILTIN_TYPE_OBJECT,
                 false,
                 'Doctrine\Common\Collections\Collection',
                 true,
                 new Type(Type::BUILTIN_TYPE_INT),
-                new Type(Type::BUILTIN_TYPE_OBJECT, false, 'Symfony\Bridge\Doctrine\Tests\PropertyInfo\Fixtures\DoctrineRelation')
-            ))),
-            array('indexedBar', array(new Type(
-                Type::BUILTIN_TYPE_OBJECT,
-                false,
-                'Doctrine\Common\Collections\Collection',
-                true,
-                new Type(Type::BUILTIN_TYPE_STRING),
                 new Type(Type::BUILTIN_TYPE_OBJECT, false, 'Symfony\Bridge\Doctrine\Tests\PropertyInfo\Fixtures\DoctrineRelation')
             ))),
             array('simpleArray', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_STRING)))),

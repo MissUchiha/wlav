@@ -461,8 +461,6 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
      * @param mixed    $val
      *
      * @return bool
-     *
-     * @throws UnexpectedValueException
      */
     private function selectNodeType(\DOMNode $node, $val)
     {

@@ -72,8 +72,8 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
             ), array_flip($this->fields));
         }
 
-        if (!$dateTime instanceof \DateTimeInterface) {
-            throw new TransformationFailedException('Expected a \DateTimeInterface.');
+        if (!$dateTime instanceof \DateTime && !$dateTime instanceof \DateTimeInterface) {
+            throw new TransformationFailedException('Expected a \DateTime or \DateTimeInterface.');
         }
 
         if ($this->inputTimezone !== $this->outputTimezone) {

@@ -58,7 +58,7 @@ class Dumper
         if ($inline <= 0 || !is_array($input) || empty($input)) {
             $output .= $prefix.Inline::dump($input, $exceptionOnInvalidType, $objectSupport);
         } else {
-            $isAHash = Inline::isHash($input);
+            $isAHash = array_keys($input) !== range(0, count($input) - 1);
 
             foreach ($input as $key => $value) {
                 $willBeInlined = $inline - 1 <= 0 || !is_array($value) || empty($value);

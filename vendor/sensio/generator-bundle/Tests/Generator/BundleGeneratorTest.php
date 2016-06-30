@@ -136,15 +136,6 @@ class BundleGeneratorTest extends GeneratorTest
         $this->getGenerator()->generateBundle($bundle);
     }
 
-    public function testAlternateTestsDirectory()
-    {
-        $bundle = new Bundle('Foo\BarBundle', 'FooBarBundle', $this->tmpDir, 'xml', true);
-        $bundle->setTestsDirectory($this->tmpDir.'/other/path/tests');
-        $this->getGenerator()->generateBundle($bundle);
-
-        $this->assertTrue(file_exists($this->tmpDir.'/other/path/tests/Controller/DefaultControllerTest.php'));
-    }
-
     protected function getGenerator()
     {
         $generator = new BundleGenerator($this->filesystem);

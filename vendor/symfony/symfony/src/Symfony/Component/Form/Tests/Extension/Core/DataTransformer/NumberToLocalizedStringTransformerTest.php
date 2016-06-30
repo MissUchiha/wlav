@@ -637,17 +637,10 @@ class NumberToLocalizedStringTransformerTest extends \PHPUnit_Framework_TestCase
         $transformer->reverseTransform("12\xc2\xa0345,678foo");
     }
 
-    public function testReverseTransformBigInt()
+    public function testReverseTransformBigint()
     {
         $transformer = new NumberToLocalizedStringTransformer(null, true);
 
         $this->assertEquals(PHP_INT_MAX - 1, (int) $transformer->reverseTransform((string) (PHP_INT_MAX - 1)));
-    }
-
-    public function testReverseTransformSmallInt()
-    {
-        $transformer = new NumberToLocalizedStringTransformer(null, true);
-
-        $this->assertSame(1.0, $transformer->reverseTransform('1'));
     }
 }

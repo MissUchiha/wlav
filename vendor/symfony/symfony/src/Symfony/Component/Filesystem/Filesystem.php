@@ -155,27 +155,24 @@ class Filesystem
      */
     public function remove($files)
     {
-        if ($files instanceof \Traversable) {
-            $files = iterator_to_array($files, false);
-        } elseif (!is_array($files)) {
-            $files = array($files);
-        }
+        $files = iterator_to_array($this->toIterator($files));
         $files = array_reverse($files);
         foreach ($files as $file) {
+            if (@(unlink($file) || rmdir($file))) {
+                continue;
+            }
             if (is_link($file)) {
                 // See https://bugs.php.net/52176
-                if (!@(unlink($file) || '\\' !== DIRECTORY_SEPARATOR || rmdir($file)) && file_exists($file)) {
-                    $error = error_get_last();
-                    throw new IOException(sprintf('Failed to remove symlink "%s": %s.', $file, $error['message']));
-                }
+                $error = error_get_last();
+                throw new IOException(sprintf('Failed to remove symlink "%s": %s.', $file, $error['message']));
             } elseif (is_dir($file)) {
-                $this->remove(new \FilesystemIterator($file, \FilesystemIterator::CURRENT_AS_PATHNAME | \FilesystemIterator::SKIP_DOTS));
+                $this->remove(new \FilesystemIterator($file));
 
-                if (!@rmdir($file) && file_exists($file)) {
+                if (!@rmdir($file)) {
                     $error = error_get_last();
                     throw new IOException(sprintf('Failed to remove directory "%s": %s.', $file, $error['message']));
                 }
-            } elseif (!@unlink($file) && file_exists($file)) {
+            } elseif (file_exists($file)) {
                 $error = error_get_last();
                 throw new IOException(sprintf('Failed to remove file "%s": %s.', $file, $error['message']));
             }

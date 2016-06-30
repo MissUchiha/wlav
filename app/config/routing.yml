@@ -2,38 +2,5 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-
-#fos_user:
-#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-fos_user_security_check:
-    path: /login_check
-    methods: POST
-    defaults:
-        _controller: FOSUserBundle:Security:login
-
-fos_user_security_logout:
-    path: /logout
-    methods: GET
-    defaults:
-        _controller: FOSUserBundle:Security:logout
-
-fos_user_security_login:
-    path: /login
-    methods: GET
-    defaults:
-        _controller: FOSUserBundle:Security:login
-
-fos_user_registration_register:
-    path: /register
-    methods: POST
-    defaults:
-        _controller: AppBundle:Registration:register
-
-fos_user_change_password:
-    path: /profile/password
-    methods: POST|GET
-    defaults:
-        _controller: FOSUserBundle:ChangePassword:changePassword
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"

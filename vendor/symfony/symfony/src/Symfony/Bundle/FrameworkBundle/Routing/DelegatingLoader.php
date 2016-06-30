@@ -78,7 +78,7 @@ class DelegatingLoader extends BaseDelegatingLoader
             if ($controller = $route->getDefault('_controller')) {
                 try {
                     $controller = $this->parser->parse($controller);
-                } catch (\InvalidArgumentException $e) {
+                } catch (\Exception $e) {
                     // unable to optimize unknown notation
                 }
 

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * VerificationCall controller.
  *
- * @Route("/")
+ * @Route("/api")
  */
 class VerificationCallController extends Controller
 {

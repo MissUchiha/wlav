@@ -398,11 +398,8 @@ UPGRADE FROM 2.x to 3.0
    </service>
    ```
 
- * The `max_length` option was removed. Use the `attr` option instead by setting it to
-   an `array` with a `maxlength` key.
-
- * The `ChoiceToBooleanArrayTransformer`, `ChoicesToBooleanArrayTransformer`,
-   `FixRadioInputListener`, and `FixCheckboxInputListener` classes were removed.
+ *  The `ChoiceToBooleanArrayTransformer`, `ChoicesToBooleanArrayTransformer`,
+    `FixRadioInputListener`, and `FixCheckboxInputListener` classes were removed.
 
  * The `choice_list` option of `ChoiceType` was removed.
 
@@ -638,11 +635,6 @@ UPGRADE FROM 2.x to 3.0
    and `yaml:lint` commands have been deprecated since Symfony 2.7 and will
    be removed in Symfony 3.0. Use the `debug:config`, `debug:container`,
    `debug:router`, `debug:translation` and `lint:yaml` commands instead.
-
- * The base `Controller`class is now abstract.
-
- * The visibility of all methods of the base `Controller` class has been changed from
-   `public` to `protected`.
 
  * The `getRequest` method of the base `Controller` class has been deprecated
    since Symfony 2.4 and must be therefore removed in 3.0. The only reliable
@@ -1083,7 +1075,7 @@ UPGRADE FROM 2.x to 3.0
    }
    ```
 
- * The `AbstractVoter::isGranted()` method has been replaced by `Voter::voteOnAttribute()`.
+ * The `AbstractVoter::isGranted()` method have been replaced by `AbstractVoter::voteOnAttribute()`.
 
    Before:
 
@@ -1102,7 +1094,7 @@ UPGRADE FROM 2.x to 3.0
    After:
 
    ```php
-   class MyVoter extends Voter
+   class MyVoter extends AbstractVoter
    {
        protected function voteOnAttribute($attribute, $object, TokenInterface $token)
        {
@@ -1113,8 +1105,8 @@ UPGRADE FROM 2.x to 3.0
    }
    ```
 
- * The `supportsAttribute()` and `supportsClass()` methods of the `AuthenticatedVoter`, `ExpressionVoter`,
-   and `RoleVoter` classes have been removed.
+ * The `supportsAttribute()` and `supportsClass()` methods of classes `AuthenticatedVoter`, `ExpressionVoter`
+   and `RoleVoter` have been removed.
 
  * The `intention` option was renamed to `csrf_token_id` for all the authentication listeners.
 
@@ -1745,7 +1737,8 @@ UPGRADE FROM 2.x to 3.0
 
 ### WebProfiler
 
- * The `profiler:import` and `profiler:export` commands have been removed.
+ * The `profiler:import` and `profiler:export` commands have been deprecated and
+   will be removed in 3.0.
 
  * All the profiler storages different than `FileProfilerStorage` have been
    removed. The removed classes are:

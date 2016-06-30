@@ -41,11 +41,6 @@ class DoctrineDummy
     public $bar;
 
     /**
-     * @ManyToMany(targetEntity="DoctrineRelation", indexBy="guid")
-     */
-    protected $indexedBar;
-
-    /**
      * @Column(type="guid")
      */
     protected $guid;

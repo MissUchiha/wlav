@@ -189,7 +189,6 @@ class UrlValidatorTest extends AbstractConstraintValidatorTest
 
     /**
      * @dataProvider getCheckDns
-     * @requires function Symfony\Bridge\PhpUnit\DnsMock::withMockedHosts
      */
     public function testCheckDns($violation)
     {

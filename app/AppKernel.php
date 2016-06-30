@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Dunglas\AngularCsrfBundle\DunglasAngularCsrfBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

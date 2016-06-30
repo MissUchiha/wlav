@@ -16,6 +16,9 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\RuntimeException;
 
+/**
+* @Route("/")
+*/
 class DefaultController extends Controller
 {
     /**
@@ -90,17 +93,6 @@ class DefaultController extends Controller
 
         return new JsonResponse($this->get('app.validator')->test());
     }
-
-
-    /**
-     * @Route("/loggedIn", name="loggedIn")
-     */
-    public function  loggedInAction(Request $request)
-    {
-        if($this->getUser())
-            return new JsonResponse(array($this->getUser()->getId(), $this->getUser()->getUsername()),200);
-        else
-            return new JsonResponse(null,404);
-    }
+    
 
     }

@@ -87,8 +87,6 @@ class ControllerResolverTest extends BaseControllerResolverTest
 
     public function testGetControllerInvokableService()
     {
-        $invokableController = new InvokableController('bar');
-
         $container = $this->createMockContainer();
         $container->expects($this->once())
             ->method('has')
@@ -98,7 +96,7 @@ class ControllerResolverTest extends BaseControllerResolverTest
         $container->expects($this->once())
             ->method('get')
             ->with('foo')
-            ->will($this->returnValue($invokableController))
+            ->will($this->returnValue($this))
         ;
 
         $resolver = $this->createControllerResolver(null, null, $container);
@@ -107,33 +105,7 @@ class ControllerResolverTest extends BaseControllerResolverTest
 
         $controller = $resolver->getController($request);
 
-        $this->assertEquals($invokableController, $controller);
-    }
-
-    public function testGetControllerInvokableServiceWithClassNameAsName()
-    {
-        $invokableController = new InvokableController('bar');
-        $className = __NAMESPACE__.'\InvokableController';
-
-        $container = $this->createMockContainer();
-        $container->expects($this->once())
-            ->method('has')
-            ->with($className)
-            ->will($this->returnValue(true))
-        ;
-        $container->expects($this->once())
-            ->method('get')
-            ->with($className)
-            ->will($this->returnValue($invokableController))
-        ;
-
-        $resolver = $this->createControllerResolver(null, null, $container);
-        $request = Request::create('/');
-        $request->attributes->set('_controller', $className);
-
-        $controller = $resolver->getController($request);
-
-        $this->assertEquals($invokableController, $controller);
+        $this->assertInstanceOf(get_class($this), $controller);
     }
 
     /**
@@ -154,7 +126,7 @@ class ControllerResolverTest extends BaseControllerResolverTest
     {
         return array(
             array('foo', '\LogicException', '/Unable to parse the controller name "foo"\./'),
-            array('oof::bar', '\InvalidArgumentException', '/Class "oof" does not exist\./'),
+            array('foo::bar', '\InvalidArgumentException', '/Class "foo" does not exist\./'),
             array('stdClass', '\LogicException', '/Unable to parse the controller name "stdClass"\./'),
             array(
                 'Symfony\Component\HttpKernel\Tests\Controller\ControllerResolverTest::bar',
@@ -203,17 +175,6 @@ class ContainerAwareController implements ContainerAwareInterface
     }
 
     public function testAction()
-    {
-    }
-
-    public function __invoke()
-    {
-    }
-}
-
-class InvokableController
-{
-    public function __construct($bar) // mandatory argument to prevent automatic instantiation
     {
     }
 
