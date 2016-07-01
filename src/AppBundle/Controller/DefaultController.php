@@ -93,6 +93,15 @@ class DefaultController extends Controller
 
         return new JsonResponse($this->get('app.validator')->test());
     }
-    
 
-    }
+
+    /**
+     * @Route("/api/loggedIn", name="loggedIn")
+     * @Method("GET")
+     */
+    public function  loggedInAction(Request $request)
+    {
+        return new JsonResponse($this->get('security.token_storage')->getToken()->getUser(),200);
+     }
+
+}

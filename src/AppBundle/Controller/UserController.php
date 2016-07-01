@@ -85,6 +85,7 @@ class UserController extends Controller
      */
     public function newAction(Request $request)
     {
+
         if(!$this->get('app.validationchecker')->checkRegistrationParams($request) || !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
             return new JsonResponse("Bad request", 400);
         else
@@ -230,4 +231,5 @@ class UserController extends Controller
         }
     }
 
+    
 }
