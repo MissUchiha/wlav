@@ -859,7 +859,7 @@ class OAuth2
         $token = $this->createAccessToken($client, $stored['data'], $scope, $stored['access_token_lifetime'], $stored['issue_refresh_token'], $stored['refresh_token_lifetime']);
 
 
-        $token['user_id'] = $stored['data']->getId();
+        $token['user'] = $stored['data'];
         return new Response(json_encode($token), 200, $this->getJsonHeaders());
     }
 

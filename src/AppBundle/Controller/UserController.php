@@ -60,7 +60,7 @@ class UserController extends Controller
         {
             $user = $this->get('security.token_storage')->getToken()->getUser();
             if((!$user || !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser))
-            && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                    && !$this->get('app.validationchecker')->checkAdminRole($user))
                 return new JsonResponse("Access denied. ", 401);
 
             $usernew = $this->getDoctrine()->getRepository('AppBundle:User')->find($iduser);
@@ -185,7 +185,8 @@ class UserController extends Controller
                 return new JsonResponse("Access denied. ", 401);
 
             $em = $this->getDoctrine()->getManager();
-            $this->get('app.filemanager')->deleteUserFolder($user->getId());
+            $user = $em->getRepository('AppBundle:User')->find($iduser);
+            $this->get('app.filemanager')->deleteUserFolder($iduser);
             $em->remove($user);
             $em->flush();
 

@@ -19,9 +19,7 @@ class ValidationChecker
     public function checkUser($idLogged, $idRequested)
     {
         $user = $this->em->getRepository('AppBundle:User')->find($idRequested);
-        if(!is_null($user) &&
-            ($user->hasRole('ROLE_ADMIN') ||
-            ($user->hasRole('ROLE_USER') && $idLogged==$idRequested)))
+        if(!is_null($user) && $idLogged==$idRequested)
             return true;
         else
             return false;
