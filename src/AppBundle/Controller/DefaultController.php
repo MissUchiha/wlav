@@ -96,7 +96,7 @@ class DefaultController extends Controller
     }
 
 
-    /**
+    /*
      * @Route("/api/loggedIn", name="loggedIn")
      * @Method("GET")
      */
