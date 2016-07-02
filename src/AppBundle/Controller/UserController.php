@@ -184,11 +184,16 @@ class UserController extends Controller
             if(!$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
                 return new JsonResponse("Access denied. ", 401);
 
-            $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('AppBundle:User')->find($iduser);
+            $em = $this->getDoctrine();
+            $rep = $em->getRepository('AppBundle:User');
+            $user = $rep->find($iduser);
+
+            if(is_null($user))
+                return new JsonResponse("User doesn't exist.",404);
+
             $this->get('app.filemanager')->deleteUserFolder($iduser);
-            $em->remove($user);
-            $em->flush();
+            $em->getManager()->remove($user);
+            $em->getManager()->flush();
 
             return new JsonResponse("Deleted user.", 200);
         }
