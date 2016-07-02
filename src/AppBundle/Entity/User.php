@@ -121,6 +121,8 @@ class User extends BaseUser implements \JsonSerializable
             'username' => $this->username,
             'email' => $this->email,
             'roles' =>$this->getRoles(),
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
             'programsources' => $progs
         );
     }
