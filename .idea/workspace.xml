@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2db77d1b-472f-4644-bca0-0ece4e9c5d84" name="Default" comment="Added verification call file output in database and implemented new login/register logic.">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web/users/1/4/4.bc" afterPath="$PROJECT_DIR$/web/users/1/4/4.o" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web/users/1/4/4.o" afterPath="$PROJECT_DIR$/web/users/1/4/4.bs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Services/FileManager.php" afterPath="$PROJECT_DIR$/src/AppBundle/Services/FileManager.php" />
@@ -60,7 +60,7 @@
       <file leaf-file-name="ProgramSourceController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
+            <state relative-caret-position="588">
               <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
               <folding>
                 <element signature="e#40#66#0#PHP" expanded="true" />
@@ -69,21 +69,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VerificationCallController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="VerificationCallController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="200" column="79" selection-start-line="200" selection-start-column="79" selection-end-line="200" selection-end-column="79" />
+            <state relative-caret-position="412">
+              <caret line="157" column="10" selection-start-line="157" selection-start-column="10" selection-end-line="157" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileManager.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FileManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/FileManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="159" column="12" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="12" />
+            <state relative-caret-position="399">
+              <caret line="178" column="12" selection-start-line="177" selection-start-column="12" selection-end-line="178" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -92,7 +92,7 @@
       <file leaf-file-name="ValidationChecker.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/ValidationChecker.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="304">
               <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
               <folding />
             </state>
@@ -196,8 +196,8 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/AccessToken.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/RefreshToken.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/AuthCode.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Services/FileManager.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Services/FileManager.php" />
       </list>
     </option>
   </component>
@@ -636,7 +636,7 @@
       <workItem from="1467412416008" duration="1566000" />
       <workItem from="1467450025367" duration="1383000" />
       <workItem from="1467452116348" duration="1837000" />
-      <workItem from="1467553734920" duration="848000" />
+      <workItem from="1467553734920" duration="1668000" />
     </task>
     <task id="LOCAL-00001" summary="Fetching flags in verification call changed.">
       <created>1466277291154</created>
@@ -677,7 +677,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73770000" />
+    <option name="totallyTimeSpent" value="74590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1364" height="741" extended-state="4" />
@@ -999,6 +999,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
           <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1083,7 +1084,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProgramSourceController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
+        <state relative-caret-position="588">
           <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
           <folding>
             <element signature="e#40#66#0#PHP" expanded="true" />
@@ -1091,26 +1092,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/FileManager.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="159" column="12" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="12" />
+        <state relative-caret-position="412">
+          <caret line="157" column="10" selection-start-line="157" selection-start-column="10" selection-end-line="157" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/ValidationChecker.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="304">
           <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/VerificationCallController.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/FileManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="200" column="79" selection-start-line="200" selection-start-column="79" selection-end-line="200" selection-end-column="79" />
+        <state relative-caret-position="399">
+          <caret line="178" column="12" selection-start-line="177" selection-start-column="12" selection-end-line="178" selection-end-column="12" />
           <folding />
         </state>
       </provider>

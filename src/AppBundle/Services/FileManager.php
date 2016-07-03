@@ -175,8 +175,8 @@ class FileManager
             $progFolder =$this->usersdir.DIRECTORY_SEPARATOR.$idUser.DIRECTORY_SEPARATOR.$idProgSource;
             $progName = $progFolder.DIRECTORY_SEPARATOR.$idProgSource.'.o';
 
-            if(!file_exists($progName))
-               return array("status" => false, "message" => "Error: program source {$idProgSource} doesn't exist!");
+//            if(!file_exists($progName))
+//               return array("status" => false, "message" => "Error: program source {$idProgSource} doesn't exist!");
 
 
             $lavFlags = " ";
@@ -192,7 +192,7 @@ class FileManager
 //            $process = new Process('LAV '.'"'.$progName.'"');
             $process = new Process('ls');
             $process->setWorkingDirectory($progFolder);
-//            $process->setTimeout(10);
+            $process->setTimeout(10);
             $process->run();
 
             if (!$process->isSuccessful())

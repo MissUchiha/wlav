@@ -209,11 +209,11 @@ class VerificationCallController extends Controller
             $em->getManager()->remove($call);
             $em->getManager()->flush();
 
-            $returnObj = $this->get('app.filemanager')->deleteVerificationCall($iduser, $idprogram,$id);
-            if($returnObj['status'])
-                return new JsonResponse("Deleted verification call.", 200);
-            else
-                throw new Exception($returnObj["message"]);
+//            $returnObj = $this->get('app.filemanager')->deleteVerificationCall($iduser, $idprogram,$id);
+//            if($returnObj['status'])
+//                return new JsonResponse("Deleted verification call.", 200);
+//            else
+//                throw new Exception($returnObj["message"]);
         }
         catch(\Exception $e)
         {
