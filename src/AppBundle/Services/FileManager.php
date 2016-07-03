@@ -155,10 +155,10 @@ class FileManager
             $filename = $idProgSource."_".$idVerCall.".txt";
 
             if(!file_exists($folder.DIRECTORY_SEPARATOR.$filename))
-                throw  new RuntimeException("Error: verification call file not exists! ");
+                return array("status" => true);
 
             if(!unlink($folder.DIRECTORY_SEPARATOR.$filename))
-                throw  new RuntimeException("Error: cannot remove verification call! ");
+                throw  new RuntimeException("Cannot remove verification call! ");
 
             return array("status" => true);
         }
@@ -189,8 +189,8 @@ class FileManager
                 $lavFlags += "-timeout=".intval($flags['timeout'])." ";
 
 //            $process = new Process('LAV '.'"'.$progName.'"'.$lavFlags);
-            $process = new Process('LAV '.'"'.$progName.'"');
-//            $process = new Process('ls');
+//            $process = new Process('LAV '.'"'.$progName.'"');
+            $process = new Process('ls');
             $process->setWorkingDirectory($progFolder);
 //            $process->setTimeout(10);
             $process->run();
@@ -200,19 +200,19 @@ class FileManager
                 throw  new RuntimeException($process->getErrorOutput());
             }
 
-            $returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
+//            $returnObj = $this->renameVerificationCall($progFolder.DIRECTORY_SEPARATOR."Output", $idProgSource, $idVerCall);
 
 //            if(!$returnObj['status'])
 //                throw  new RuntimeException($returnObj['message']);
 
             $statusV = "";
             $filecontents = "";
-            if(file_exists($returnObj['filename']))
-            {
-                $filecontents = file_get_contents($returnObj['filename']);
-
-                $statusV = (strstr($filecontents, "UNSAFE") || strstr($filecontents,"UNCHECKED") || strstr($filecontents,"FAILED")) ? "false" : "true";
-            }
+//            if(file_exists($returnObj['filename']))
+//            {
+//                $filecontents = file_get_contents($returnObj['filename']);
+//
+//                $statusV = (strstr($filecontents, "UNSAFE") || strstr($filecontents,"UNCHECKED") || strstr($filecontents,"FAILED")) ? "false" : "true";
+//            }
 
             return array("status" => true, "statusV" => $statusV,"stdout" => $process->getOutput(), "erroroutput" => $process->getErrorOutput(),"output" => $filecontents);
         }

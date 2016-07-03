@@ -194,10 +194,11 @@ class VerificationCallController extends Controller
         try
         {
             $user = $this->get('security.token_storage')->getToken()->getUser();
-            if((!$user ||  !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser)
+            if((!$user
+                    ||  !$this->get('app.validationchecker')->checkUser($user->getId(),$iduser)
                     || !$this->get('app.validationchecker')->checkProgram($idprogram,$iduser)
                     ||   !$this->get('app.validationchecker')->checkValidationCall($id,$idprogram))
-                && !$this->get('app.validationchecker')->checkAdminRole($this->get('security.token_storage')->getToken()->getUser()))
+                && !$this->get('app.validationchecker')->checkAdminRole($user))
                 return new JsonResponse("Access denied.",401);
 
             $em = $this->getDoctrine();
