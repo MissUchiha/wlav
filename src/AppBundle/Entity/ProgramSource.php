@@ -23,6 +23,7 @@ class ProgramSource implements \JsonSerializable
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="programSources")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
       */
     private $user;
 

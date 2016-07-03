@@ -67,6 +67,7 @@ class VerificationCall implements \JsonSerializable
 
     /**
      * @ORM\ManyToOne(targetEntity="ProgramSource", inversedBy="verificationCalls")
+     * @ORM\JoinColumn(name="programSource_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $programSource;
 
